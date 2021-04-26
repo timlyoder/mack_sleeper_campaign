@@ -1,0 +1,3192 @@
+<!DOCTYPE html>
+
+<!--[if lte IE 6]><html class="preIE7 preIE8 preIE9"><![endif]-->
+<!--[if IE 7]><html class="preIE8 preIE9"><![endif]-->
+<!--[if IE 8]><html class="preIE9"><![endif]-->
+<!--[if gte IE 9]><!--><html><!--<![endif]-->
+
+<head>
+
+	<title>Mackonomics</title>
+
+	<meta charset="UTF-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+		
+	<meta name="author" content="name">
+
+	<meta name="description" content="description here">
+
+	<meta name="keywords" content="keywords,here">
+
+	<script type="text/javascript" src="https://www.macktrucks.com/js/jquery-1.8.3.min.js"></script>
+
+	<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+	<script>
+
+		$( function() {
+
+			// calculate
+
+			function formatNumberCommas(num) {
+				// add commas to long numbers
+				return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+			}
+
+			function currencyFormat(num) {
+				// format numbers to two decimal places
+				return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+			}
+
+			function slideChange( event=null, ui=null ) {
+
+				// when a slider is changed
+				// console.log("slideChange()");
+
+				setTimeout(function(){
+						
+					// get slider values
+
+					const miles = $("#miles_slider").slider( "value" );
+					const cost = $("#cost_slider").slider( "value" );
+					const years = $("input[name='years']:checked").val();
+
+					var trucks = 1;
+					const truck_position = $("#trucks_slider").slider( "value" );
+
+					switch(truck_position) {
+						case 2:
+							trucks = 5;
+							break;
+						case 3:
+							trucks = 10;
+							break;
+						case 4:
+							trucks = 50;
+							break;
+						case 5:
+							trucks = 100;
+							break;
+						default:
+							trucks = 1;
+							break;
+					}
+
+					// compute savings
+					const savings = Math.round( trucks * miles * cost * years * .13);
+
+					// update values
+					$("#trucks_slider_value").html(trucks);
+					$("#trucks_slider_plural").html( (trucks > 1) ? "s" : "" );
+					$("#miles_slider_value").html(formatNumberCommas(miles));
+					$("#cost_slider_value").html(currencyFormat(cost));
+					$("#savings_value").html(formatNumberCommas(savings));
+					$("#savings_years").html(years);
+					$("#savings_years_plural").html( (years > 1) ? "s" : "" );
+
+				}, 100);
+
+			}
+
+			// init sliders
+
+			$( "#trucks_slider" ).slider({
+				min: 1,
+				max: 5,
+				value: 1,
+				slide: slideChange
+			});
+
+			$( "#miles_slider" ).slider({
+				min: 10000,
+				max: 500000,
+				step: 10000,
+				value: 100000,
+				slide: slideChange
+			});
+
+			$( "#cost_slider" ).slider({
+				min: 1,
+				max: 5,
+				step: .01,
+				value: 2.54,
+				slide: slideChange
+			});
+
+			// radio button listener
+			$("#calculate input").click( slideChange );
+
+			// init values
+			slideChange();
+
+
+			// sidebar
+
+			// on button click
+			$(".modal-button, .overlay, .sidebar .close").on("click", function() {
+				// show sidebar and overlay
+				$(".sidebar").toggleClass("show");
+				$("body").toggleClass("modal");
+            	$(".overlay").toggleClass("show");
+			});
+
+
+			// video
+
+			// show video iframe on click
+			$("#video").click(function() {
+				const videoheight = $("#video").height()
+				$("#video").hide();
+				$("iframe").show();
+				$("iframe").height(videoheight);
+			})
+
+
+			// slide anchors
+
+			$(document).ready(function(){
+				$( "a.scroll" ).click(function( event ) {
+					event.preventDefault();
+					$("html, body").animate({ scrollTop: $($(this).attr("href")).offset().top }, 500);
+				});
+			});
+
+		});
+
+	</script>
+	  
+
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+	<style>
+
+		/* Fonts */
+		@font-face{ font-family: "Helvetica Neue 85 Heavy"; src:url(https://www.macktrucks.com/css/fonts/293F49_2_0.eot); src: url(https://www.macktrucks.com/css/fonts/293F49_2_0.eot#iefix) format("embedded-opentype"), url(https://www.macktrucks.com/css/fonts/293F49_2_0.woff) format("woff"), url(https://www.macktrucks.com/css/fonts/293F49_2_0.ttf) format("truetype"); }
+		@font-face{ font-family: "Helvetica Neue 75 Bold"; src:url(https://www.macktrucks.com/css/fonts/293F49_0_0.eot); src: url(https://www.macktrucks.com/css/fonts/293F49_0_0.eot#iefix) format("embedded-opentype"), url(https://www.macktrucks.com/css/fonts/293F49_0_0.woff) format("woff"), url(https://www.macktrucks.com/css/fonts/293F49_0_0.ttf) format("truetype"); }
+		@font-face{ font-family: "Helvetica Neue 65 Medium"; src:url(https://www.macktrucks.com/css/fonts/293F49_1_0.eot); src: url(https://www.macktrucks.com/css/fonts/293F49_1_0.eot#iefix) format("embedded-opentype"), url(https://www.macktrucks.com/css/fonts/293F49_1_0.woff) format("woff"), url(https://www.macktrucks.com/css/fonts/293F49_1_0.ttf) format("truetype"); font-weight: 500; font-style: normal; }
+		@font-face{ font-family: "Helvetica Neue 55 Regular"; src: url(https://www.macktrucks.com/css/fonts/HelveticaNeueLTPro-Roman.woff) format("woff"); font-weight: 400; font-style: normal }
+
+		/* Reset */
+
+		/* Box sizing rules */
+		*, *::before, *::after {
+			box-sizing: border-box;
+		}
+
+		/* Remove default padding */
+		ul[class], ol[class] {
+			padding: 0;
+		}
+
+		/* Remove default margin */
+		body, h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquote, dl, dd {
+			margin: 0;
+		}
+
+		/* Remove list styles on ul, ol elements with a class attribute */
+		ul[class], ol[class] {
+			list-style: none;
+		}
+
+		/* A elements that don't have a class get default styles */
+		a:not([class]) {
+			text-decoration-skip-ink: auto;
+		}
+
+		/* Make images easier to work with */
+		img {
+			max-width: 100%;
+			display: block;
+		}
+
+		/* Natural flow and rhythm in articles by default */
+		article > * + * {
+			margin-top: 1em;
+		}
+
+		/* Inherit fonts for inputs and buttons */
+		input, button, textarea, select {
+			font: inherit;
+		}
+
+		/* Remove all animations and transitions for people that prefer not to see them */
+		@media (prefers-reduced-motion: reduce) {
+			* {
+				animation-duration: 0.01ms !important;
+				animation-iteration-count: 1 !important;
+				transition-duration: 0.01ms !important;
+				scroll-behavior: auto !important;
+			}
+		}
+
+		/*
+		
+		- - - Reset End
+		
+		*/
+
+
+		body {
+			min-height: 100vh;
+			scroll-behavior: smooth;
+			/* text-rendering: optimizeSpeed; */
+			line-height: 1.5;
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			background-color:#000;
+		}
+
+		#container {
+			max-width: 1400px;
+			margin:0 auto;
+		}
+
+		.heavy, button, a.button {
+			font-family: "Helvetica Neue 65 Medium", "Helvetica", "Arial", sans-serif;
+		}
+
+		a.button {
+			text-decoration: none;
+			cursor: pointer;
+			display: inline-block;
+		}
+
+		#hero {
+			background-image: url("Mackonomics_hero_Nov20.png");
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center;
+			height: 250px;
+			width: 100%;
+		}
+
+		#logo {
+			padding-top: 3.5%;
+			padding-left: 7%;
+			display: inline-block;
+		}
+
+		#quote_cta {
+			float: right;
+		}
+
+		#quote_cta button {
+			background-color: #B70000;
+			color: #fff;
+			padding: 16px 40px;
+			border: none;
+			margin: 0;
+			font-size: 12px;
+			cursor: pointer;
+		}
+
+		#quote_cta button:hover {
+			background-color: #1C1C1C;
+		}
+
+		#calculate_hero_cta {
+			display: none;
+		}
+
+		#introduction {
+			background-color: #000;
+		}
+
+		h1 {
+			font-size: 48px;
+			color: #fff;
+			font-weight: 500;
+			line-height: 45px;
+		}
+
+		h2 {
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			font-size: 36px;
+			line-height: 43px;
+			font-weight: 400;
+			padding-top: 68px;
+			padding-left: 8%;
+			padding-right: 7%;
+			padding-bottom: 65px;
+		}
+
+		h3 {
+			font-size: 22px;
+			color: #fff;
+			font-weight: 400;
+			line-height: 26px;
+		}
+
+		.section_title {
+			color: #727272;
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			font-size: 10px;
+			line-height: 12px;
+			letter-spacing: 3px;
+			display: flex;
+			padding-left: 8%;
+			padding-top: 46px;
+			padding-bottom: 16px;
+		}
+
+		#introduction_header {
+			width: 50%;
+			padding-top: 7%;
+			padding-left: 7%;
+		}
+
+		#drive_header {
+			padding-left: 7%;
+			padding-top: 10%;
+			width: 85%;
+		}
+
+		#calculate_cta {
+			padding-top: 17%;
+			padding-left: 7%;
+			display: inline-block;
+		}
+
+		.gold_button {
+			color: #B49867;
+			background: none;
+			padding: 18px 38px;
+			border: 1px solid #B49867;
+		}
+
+		.gold_button:hover {
+			background-color: #B49867;
+			color: #000;
+		}
+
+		#calculate_cta img {
+			float: right;
+			padding-left: 35px;
+			padding-top: 15px;
+		}
+
+		#efficiency {
+			padding-top: 90px;
+			padding-left: 8%;
+			padding-bottom: 88px;
+		}
+
+		#efficiency_span {
+			color: #727272;
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			font-size: 10px;
+			line-height: 12px;
+			letter-spacing: 3px;
+		}
+
+		.efficiency_stat {
+			letter-spacing: -6px;
+		}
+
+		#fuel_savings {
+			padding-top: 70px;
+		}
+
+		#fuel_span_p {
+			padding-top: 26px;
+		}
+		
+		.body_copy {
+			font-size: 12px;
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			line-height: 18px;
+			color: #fff;
+		}
+
+		.body_copy_black {
+			font-size: 12px;
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			line-height: 18px;
+			color: #000000;
+		}
+
+		#hp_h1 {
+			letter-spacing: 0px;
+			padding-top: 74px;
+		}
+
+		.stat_metric {
+			font-family: "Helvetica Neue 65 Medium", "Helvetica", "Arial", sans-serif;
+			font-size: 20px;
+			line-height: 33px;
+			color: #fff;
+		}
+
+		#hp_span, #torque_span {
+			display: block;
+			padding-bottom: 26px;
+		}
+
+		#torque_h1 {
+			letter-spacing: -2px;
+			padding-top: 78px;
+		}
+
+		#mpg_span {
+			padding-bottom: 26px;
+		}
+
+		#mackonomics {
+			background-color: #1c1c1c;
+			padding-top: 48px;
+			padding-bottom: 48px;
+		}
+
+		#mackonomics_title {
+			padding-left: 8%;
+		}
+
+		.section_title::after {
+			border-bottom: 1px solid #727272 ;
+			display: flex;
+			flex: auto;
+			content: "";
+			margin-left: 3%;
+			margin-right: 3%;
+			margin-bottom: 5px;
+		}
+
+		#mackonomics h2 {
+			color: #fff;
+		}
+
+		#mackonomics_p {
+			padding-left: 8%;
+			padding-right: 7%;
+			padding-top: 40px;
+			padding-bottom: 53px;
+		}
+
+		#jamie_button {
+			margin-left: 8%;
+			margin-bottom: 74px;
+		}
+
+		#calculate {
+			color: #FFF;
+			padding-bottom: 40px;
+		}
+
+		#calculate .slider {
+			margin-bottom: 60px;
+			margin-left: 8%;
+			margin-right: 8%;
+			margin-top: 20px;
+			
+		}
+
+		#calculate_h2 {
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			font-size: 36px;
+			line-height: 43px;
+			font-weight: 400;
+			padding-top: 68px;
+			padding-left: 8%;
+			padding-right: 7%;
+			padding-bottom: 35px;
+		}
+
+		.twitter_handle {
+			font-family: "Helvetica Neue 85 Heavy", "Helvetica", "Arial", sans-serif;
+			font-size: 10px;
+			color: #fff;
+		}
+
+		.tweet_icon {
+			display: inline-block;
+			padding-top: 15px;
+		}
+
+		#tweets {
+			margin: 0 20%;
+		}
+
+		#engine_detail {
+			background-color: #fff;
+			background-repeat: no-repeat;
+			padding-top: 15px;
+			padding-bottom: 30px;
+		}
+
+		#engine_header {
+			padding-top: 0px;
+			padding-bottom: 40px;
+		}
+
+		#engine_table td {
+			padding-left: 8%;
+			padding-right: 6%;
+			padding-bottom: 20px;
+			vertical-align: top;
+		}
+
+		#engine_image {
+			width: 100%;
+		}
+
+		#card_1 {
+			height: 438px;
+			background-color: #B49867;
+			width: 311px;
+			float: left;
+		}
+
+		#card_1 h2 {
+			padding-left: 35px;
+			padding-right: 25px;
+		}
+
+		#card_1 img {
+			padding-left: 266px;
+			padding-top: 88px;
+		}
+
+		.card {
+			height: 438px;
+			background-repeat: no-repeat;
+			background-position-y: top;
+			width: 311px;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		#carousel {
+			display: inline-block;
+			width: 100%;
+			overflow-x: scroll;
+			overflow-y: hidden;
+			margin-top: 32px;
+		}
+
+		#cards {
+			width: 1760px;
+			display: block;
+			background-color: #C6C6C6;
+			background-image: url(blue_gradient.png);
+			background-size: contain;
+		}
+
+		.card_numbers {
+			font-size: 10px;
+			padding-left: 35px;
+			padding-top: 15px;
+			padding-bottom: 25px;
+		}
+
+		.card_header {
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			font-size: 20px;
+			line-height: 24px;
+			padding-left: 35px;
+			padding-top: 35px;
+		}
+
+		#card_p {
+			padding-left: 35px;
+			padding-right: 35px;
+			padding-top: 20px;
+		}
+
+		#he_disclaimer {
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			font-size: 9px;
+			line-height: 9.53px;
+			letter-spacing: 8%;
+			color: #949494;
+			padding-left: 8%;
+			padding-top: 31px;
+			padding-bottom: 58px;
+		}
+
+		#calculate_title {
+			padding-left: 8%;
+			padding-top: 45px;
+		}
+
+		.calculate_p {
+			padding-left: 8%;
+			padding-bottom: 15px;
+			font-size: 12px;
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			line-height: 18px;
+			color: #8A8A8A;
+		}
+
+		#trucks_slider_value, #miles_slider_value {
+			font-size: 20px;
+			padding-left: 8%;
+		}
+
+		#cost_slider_value {
+			padding-left: 0;
+			font-size: 20px;
+		}
+
+		#cost_slider_p {
+			padding-left: 8%;
+		}
+
+		.ui-corner-all {
+			border-radius: 12px;
+		}
+
+		.ui-slider-handle, .ui-state-default {
+			border: none;
+		}
+
+		.ui-slider-horizontal {
+			height: 1px;
+		}
+
+		.ui-slider-horizontal .ui-slider-handle {
+			top: -.6em;
+		}
+
+		#savings {
+			font-size: 64px;
+			display: inline-block;
+			padding-left: 8%;
+		}
+
+		#savings_over {
+			font-size: 12px;
+			display: inline-block;
+			padding-left: 10px;
+			padding-top: 40px;
+		}
+
+		fieldset {
+			border: none;
+			padding-left: 0;
+		}
+
+		#dealer_button {
+			margin-left: 8%;
+			margin-top: 30px;
+		}
+
+		#request_demo {
+			background-color: #252525;
+			padding-top: 50px;
+			padding-right: 8%;
+			padding-left: 9.5%;
+			padding-bottom: 40px;
+		}
+
+		.next_step_header {
+			color: #fff;
+			font-size: 16px;
+			margin-top: 10px;
+		}
+
+		#footer {
+			background-color: #000000;
+			padding-top: 60px;
+			padding-left: 8%;
+		}
+
+		.fine_print {
+			font-size: 10px;
+			color: #8A8A8A;
+			padding-top: 35px;
+			padding-bottom: 45px;
+			
+		}
+
+		#social {
+			display: flex;
+			padding-left: 100px;
+			padding-bottom: 10px;
+		}
+
+		#social img {
+			padding-right: 18px;
+		}
+
+		#privacy {
+			padding-left: 120px;
+		}
+
+		.twitter_copy {
+			font-size: 10px;
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			line-height: 18px;
+			color: #fff;
+		}
+
+		.engine_table_copy {
+			font-size: 12px;
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			line-height: 14px;
+			color: #000000;
+		}
+
+		#tweet_2, #tweet_3 {
+			margin-top: 40px;
+		}
+
+		.next_step_copy {
+			color: #8A8A8A;
+			font-size: 16px;
+			line-height: 19px;
+			margin-top: 10px;
+		}
+
+		#build, #specs {
+			padding-right: 2%;
+			margin-top: 30px;
+		}
+
+		.overlay {
+			width: 100%;
+			height: 100%;
+			background: #000;
+			opacity: 0;
+			position: fixed;
+			z-index: -1;
+			top: 0;
+			left: 0;
+			transition: opacity .25s ease-in;
+			visibility:hidden
+		}
+
+		.overlay.show {
+			visibility: visible;
+			z-index: 1;
+			opacity:.7
+		}
+
+		.sidebar.show {
+			transform: translateX(0);
+		}
+
+		.sidebar {
+			width: 100vw;
+			position: fixed;
+			top: 0;
+			height: 100vh;
+			right: 0;
+			background: #000;
+			z-index: 999;
+			transition: all .3s ease-in;
+			transform: translateX(100%);
+			overflow: hidden;
+			color: #fff;
+			overflow-y: scroll!important;
+		}
+
+		.sidebar-content {
+			margin: 0 auto;
+			max-width: 480px;
+			width: 100%;
+			padding: 60px 5%;
+			overflow: visible;
+		}
+
+		.sidebar .close {
+			position: absolute;
+			color: #fff;
+			top: 40px;
+			right: 40px;
+			height: 20px;
+			width: 20px;
+			cursor: pointer;
+			display:block
+		}
+
+		.sidebar .close:after, .sidebar .close:before {
+			content: "";
+			display: block;
+			width: 24px;
+			cursor: pointer;
+			height: 2px;
+			transition: all .2s ease-in;
+			background-color: #fff;
+			position: absolute;
+			left: 0;
+			top:8px
+		}
+
+		.sidebar .close:before {
+			top: 0;
+			transform:rotate(45deg)
+		}
+
+		.sidebar .close:after {
+			top: 0;
+			transform:rotate(-45deg)
+		}
+
+		.sidebar-content-form {
+			border-top: 2px solid #fff;
+		}
+
+		.sidebar-content-form h4 {
+			font-size: 25px;
+			line-height: 1;
+			padding: 20px 0;
+		}
+
+		.sidebar .form-element-layout>div {
+			display: flex;
+			width: 70%;
+		}
+
+		.sidebar .form-element-layout>div:first-child {
+			width: 30%;
+			padding-right: 10px;
+		}
+
+		.sidebar #formElement8>div:first-child, .sidebar #formElement9>div:first-child {
+			width: 100%;
+			padding-right: 0;
+		}
+
+		.LV_validation_message {
+			display: block;
+		}
+
+		.sidebar .elq-form .container-fluid, .sidebar .elq-form .layout-col, .sidebar .elq-form .col-xs-12 {
+			padding: 0;
+		}
+
+		.sidebar .elq-form .row {
+			width: 100%;
+			margin: 0;
+		}
+
+		.sidebar-content-form form input[type=text], .sidebar-content-form form select {
+			-webkit-appearance: none;
+			padding: 4px;
+			padding-left: 8px;
+			-moz-appearance: none;
+			color: #fff;
+			background: #2c2c2c;
+			border: 1px solid #555;
+			box-sizing: border-box;
+			font-size: 16px;
+		}
+
+		.sidebar-content-form form input[type=text] {
+			max-width: 400px;
+			font-size: 16px;
+			text-indent: 5px;
+		}
+
+		.sidebar .elq-form .elq-label, .sidebar .elq-form label.checkbox-aligned {
+			/* width: 97px; */
+			font-weight: 500;
+			font-size: 14px;
+			line-height: 24px;
+			color: #a2a2a2;
+			line-height: 1.3;
+		}
+
+		.sidebar .LV_invalid {
+			color: #c00;
+			font-size: 10px;
+			display: block;
+			margin-top: 10px;
+		}
+
+		.sidebar .elq-form .elq-required {
+			display: none;
+		}
+		
+		.sidebar .sidebar-content-form form input[type=checkbox] {
+			-moz-appearance: none;
+			-webkit-appearance: none;
+			background: #000;
+			border: 2px solid #9e9e9e;
+			box-sizing: border-box;
+			height: 17px;
+			width: 17px;
+		}
+
+		.sidebar-content-form form .submit-button-style {
+			background: #b8252f;
+			border: 3px solid #b8252f;
+			color: #fff;
+			font-weight: 750;
+			font-size: 14px;
+			line-height: 24px;
+			text-align: center;
+			width: 100%;
+			padding: 8px 0;
+			margin-top: 20px;
+			cursor: pointer;
+		}
+
+		#video {
+			width: 100%;
+		}
+
+		iframe {
+			width: 100%;
+			display: none;
+		}
+
+		input[type="radio"] {
+			display: none;
+		} 
+
+		input[type="radio"]:checked+label{
+			color: #FFF;
+		} 
+
+		input[type="radio"]+label::before{
+			content: "•";
+			margin-right: 5px;
+			visibility: hidden;
+		}
+
+		input[type="radio"]:checked+label::before{
+			visibility: visible;
+		} 
+
+		#hero h3 {
+			display: none;
+		}
+
+		#energy_recovery, #predictive_cruise {
+			border-right: 1px solid #C6C6C6;
+		}
+
+		#card_2 {
+			border-right: 1px solid #C6C6C6;
+		}
+
+
+		@media (min-width: 769px) {
+
+			#hero {
+				height: 535px;
+			} 
+
+			#hero h3 {
+				display: block;
+				width: 33%;
+				padding-top: 7%;
+				padding-left: 10%;
+			} 
+
+			#logo {
+				padding-left: 10%;
+				padding-top: 3.5%;
+			}
+
+			#quote_cta button {
+				padding: 25px 50px;
+			}
+
+			#calculate_hero_cta {
+				display: block;
+				float: right;
+			}
+
+			#calculate_hero_cta a {
+				padding: 25px;
+				color: #FFF;
+				font-size: 12px;
+				display: inline-block;
+			}
+
+			#calculate_hero_cta a:hover {
+				text-decoration: underline;
+
+			}
+
+			#introduction_header h3 {
+				display: none;
+			}
+
+			#drive_header {
+				padding-top:0;
+			}
+
+			#drive_header h1 {
+				font-size: 86px;
+				line-height: 80.5px;
+			}
+
+			.efficiency_section {
+				display: inline-block;
+				width: 32%;
+			}
+
+			.efficiency_stat {
+				font-size: 64px;
+			}
+
+			#mackonomics h2 {
+				width: 60%;
+			}
+
+			#video, iframe {
+				padding: 3%;
+			}
+
+			#mackonomics {
+				border-top-left-radius: 6px;
+				border-top-right-radius: 6px;
+			}
+
+			#mackonomics_p {
+				width: 60%;
+				display: inline-block;
+			}
+
+			#calculate_cta {
+				padding-top: 7%;
+			}
+
+			#tweets {
+				margin:0;
+				text-align: center;
+			}
+
+			.tweet {
+				width: 31.5%;
+				display: inline-block;
+				padding: 0 10px;
+				vertical-align: top;
+				text-align: left;
+			}
+
+			#tweet_2, #tweet_3 {
+				margin-top: 0;
+			}
+
+			.twitter_copy {
+				width: 80%;
+			}
+
+			#engine_detail {
+				border-bottom-left-radius: 6px;
+				border-bottom-right-radius: 6px;
+			}
+
+			#engine_detail .section_title {
+				padding-bottom: 32px;
+			}
+
+			#engine_header {
+				width: 40%;
+				display: inline-block;
+				vertical-align: top;
+			}
+
+			#engine_table {
+				width: 55%;
+				display: inline-block;
+			}
+
+			#card_1 {
+				width: 365px;
+			}
+
+			.card {
+				width: 345px;
+				vertical-align: top;
+			}
+
+			#card_1 img {
+				padding-left: 320px;
+			}
+
+			#calculate_h2 {
+				width: 60%;
+			}
+
+			.slide_container .calculate_p {
+				height: 50px;
+			}
+
+			.slides {
+				padding: 0 7%;
+			}
+
+			.slide_container {
+				width:25%;
+				display: table-cell;
+			}
+
+			#savings_over {
+				padding-top: 30px;
+			}
+
+			#dealer_button {
+				float: right;
+				margin-right: 10%;
+				margin-top: 0;
+			}
+
+			#request_demo {
+				padding: 15px;
+				padding-bottom: 40px;
+				border-radius: 6px;
+			}
+
+			#request_demo .section_title {
+				padding-bottom: 60px;
+			}
+
+			#request_demo .cta {
+				width: 25%;
+				display: table-cell;
+				margin: 0!important;
+				padding: 15px;
+			}
+
+			.cta img {
+				width: 100%;
+				margin-bottom: 15px;
+			}
+
+			.cta:hover {
+				background-color: #B49867;
+				border-radius: 12px;
+				background-image: url("arrow.png");
+				background-position: bottom right;
+				background-repeat: no-repeat;
+				background-size: 10%;
+				background-origin: content-box;
+				cursor: pointer;
+			}
+
+			.cta:hover .next_step_copy, .cta:hover .next_step_header {
+				color: #000;
+			}
+
+			#footer {
+				padding-left: 0;
+			}
+			
+			#footer_left, #footer_right {
+				display: inline-block;
+				width: 40%;
+			}
+
+			#footer_right {
+				float: right;
+				text-align: right;
+			}
+
+			#social {
+				display: inline-flex;
+			}
+
+			#privacy {
+				padding-top: 20px;
+				padding-right: 20px;
+			}
+
+			.sidebar {
+				width: 50vw;
+			}
+
+			.sidebar-content {
+				padding: 100px 10px 50px;
+			}
+
+			.sidebar #formElement8>div:first-child, .sidebar #formElement9>div:first-child {
+				width: 70%;
+				margin-left: 30%;
+			}
+
+		}
+
+		@media (max-width: 768px) {
+			
+			#cards {
+				width: 1570px;
+			}
+		}
+
+	</style>
+
+</head>
+
+
+<body>
+
+
+	<div id="container">
+	
+
+		<div id="hero">
+
+			<div id="logo">
+
+				<svg width="96" height="10" viewBox="0 0 96 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M94.9529 7.82952C94.9529 7.52326 94.713 7.27026 94.4226 7.27026H93.387V8.93471H93.6648V8.38877H94.2458L94.6499 8.93471H95.0035L94.5867 8.36214C94.7888 8.28225 94.9529 8.08251 94.9529 7.82952ZM93.6648 8.09583V7.56321H94.4099C94.5488 7.56321 94.6625 7.68305 94.6625 7.82952C94.6625 7.97599 94.5488 8.09583 94.4099 8.09583H93.6648Z" fill="white"/>
+					<path d="M94.0943 6.20508C93.0966 6.20508 92.2884 7.05728 92.2884 8.10921C92.2884 9.16114 93.0966 10 94.0943 10C95.0919 10 95.9001 9.14782 95.9001 8.10921C95.9001 7.05728 95.0919 6.20508 94.0943 6.20508ZM94.0943 9.70707C93.2608 9.70707 92.5788 8.98803 92.5788 8.10921C92.5788 7.21706 93.2608 6.49802 94.0943 6.49802C94.9278 6.49802 95.6097 7.21706 95.6097 8.10921C95.6223 8.98803 94.9404 9.70707 94.0943 9.70707Z" fill="white"/>
+					<path d="M22.8195 0H16.2906C16.1265 0 15.9118 0.106525 15.8108 0.252996L11.7444 5.92543C11.6434 6.05859 11.4792 6.05859 11.3908 5.92543L7.29922 0.252996C7.21082 0.11984 6.99614 0 6.83197 0H0.303082C0.138912 0 0 0.146471 0 0.319574V9.58722C0 9.76032 0.138912 9.89348 0.303082 9.89348H4.97559C5.13976 9.89348 5.26605 9.747 5.26605 9.58722V4.59387C5.26605 4.42077 5.34182 4.39414 5.44284 4.5273L9.13034 9.6538C9.23137 9.78695 9.44605 9.90679 9.61022 9.90679H13.5124C13.6766 9.90679 13.8912 9.80027 13.9923 9.6538L17.6798 4.5273C17.7808 4.39414 17.8566 4.42077 17.8566 4.59387V9.58722C17.8566 9.76032 17.9955 9.89348 18.1596 9.89348H22.8322C22.9963 9.89348 23.1226 9.747 23.1226 9.58722V0.319574C23.1226 0.146471 22.9837 0 22.8195 0Z" fill="white"/>
+					<path d="M68.206 0H50.9051C50.7409 0 50.5262 0.106525 50.4252 0.252996L49.718 1.23835C49.617 1.3715 49.5412 1.6245 49.5412 1.7976V8.1225C49.5412 8.2956 49.617 8.5486 49.718 8.68176L50.4252 9.66711C50.5262 9.80027 50.7409 9.9201 50.9051 9.9201H68.206C68.3701 9.9201 68.509 9.77363 68.509 9.60053V7.11052C68.509 6.93742 68.3701 6.79094 68.206 6.79094H55.0724C54.9083 6.79094 54.782 6.64447 54.782 6.47137V3.4221C54.782 3.249 54.9209 3.11584 55.0724 3.11584H68.206C68.3701 3.11584 68.509 2.96937 68.509 2.79627V0.319574C68.509 0.146471 68.3701 0 68.206 0Z" fill="white"/>
+					<path d="M84.5219 3.86152C84.3956 3.75499 84.4083 3.59521 84.5598 3.51531L90.6214 0.146471C90.7603 0.0665779 90.7477 0 90.5836 0H83.5116C83.3475 0 83.0949 0.0665779 82.956 0.146471L76.5534 3.71505C76.4145 3.79494 76.2882 3.71505 76.2882 3.54194V0.306258C76.2882 0.146471 76.1493 0 75.9851 0H71.3126C71.1484 0 71.0222 0.146471 71.0222 0.306258V9.58722C71.0222 9.76032 71.1611 9.90679 71.3126 9.90679H75.9851C76.1493 9.90679 76.2756 9.76032 76.2756 9.58722V8.42876C76.2756 8.25566 76.3892 8.05593 76.5408 7.97603L80.203 5.93875C80.3545 5.85886 80.5692 5.88549 80.6955 5.99201L85.0018 9.70706C85.1281 9.81358 85.368 9.90679 85.5322 9.90679H91.2276C91.3918 9.90679 91.417 9.81358 91.2907 9.70706L84.5219 3.86152Z" fill="white"/>
+					<path d="M41.1686 0.252996C41.0676 0.11984 40.8529 0 40.6887 0H32.3919C32.2277 0 32.013 0.11984 31.912 0.252996L25.1558 9.6538C25.0547 9.78695 25.1053 9.90679 25.2694 9.90679H30.4092C30.5734 9.90679 30.788 9.78695 30.8891 9.6538L31.8109 8.3755C31.912 8.24234 32.1267 8.1225 32.2908 8.1225H40.7771C40.9413 8.1225 41.156 8.22903 41.257 8.3755L42.1789 9.6538C42.2799 9.78695 42.4946 9.90679 42.6588 9.90679H47.7985C47.9627 9.90679 48.0132 9.80027 47.9122 9.6538L41.1686 0.252996ZM39.047 5.37949H34.0588C33.8946 5.37949 33.8441 5.25965 33.9451 5.1265L35.4858 2.96937C35.5868 2.83622 35.8015 2.71638 35.9657 2.71638H37.1528C37.3169 2.71638 37.5316 2.8229 37.6326 2.96937L39.1733 5.1265C39.2617 5.27297 39.2112 5.37949 39.047 5.37949Z" fill="white"/>
+				</svg>
+
+			</div>
+
+			<div id="quote_cta">
+
+				<button class="modal-button">
+					Get a Quote
+				</button>
+
+			</div>
+
+
+			<div id="calculate_hero_cta">
+
+				<a href="#calculate" class="button scroll">
+					Calculate my Savings
+				</a>
+
+			</div>
+
+
+			<h3 class="heavy">Introducing the Next-Generation MP8HE</h3>
+
+		</div>
+
+
+		<div id="introduction">
+
+			<div id="introduction_header" class="heavy">
+
+				<h3>Introducing the Next-Generation MP8HE</h3>
+			
+			</div>
+
+			<div id="drive_header" class="heavy">
+
+				<h1>Drive the most fuel-efficient engine we've ever built.</h1>
+
+			</div>
+
+			<div id="calculate_cta">
+
+				<a class="gold_button button scroll" href="#calculate">
+					Calculate Savings
+				</a>
+
+				<img src="gold_arrow.png" alt="" />
+			
+			</div>
+
+			<div id="efficiency">
+
+				<span id="efficiency_span" class="section_title">EFFICIENCY MEETS PROFICIENCY</span>
+
+				<div id="fuel_savings" class="efficiency_section">
+
+					<h1 class="efficiency_stat" id="efficiency_h1">11+</h1>
+
+					<span class="stat_metric" id="mpg_span">miles per gallon</span> 
+
+					<p id="fuel_span_p"><span class= "body_copy" id="fuel_span">Fuel savings for the long haul.</span></p>
+
+				</div>
+
+
+				<div id="hp" class="efficiency_section">
+
+					<h1 class="efficiency_stat" id="hp_h1">445</h1>
+
+					<span id="hp_span" class="stat_metric">max hp</span>
+
+					<span class="body_copy">Equal parts power and performance.</span>
+				</div>
+
+				<div id="torque" class="efficiency_section">
+
+					<h1 id="torque_h1" class="efficiency_stat">1860</h1>
+
+					<span class="stat_metric" id="torque_span">lb.-ft. max torque</span>
+
+					<span class="body_copy">Even at 900 RPM.</span>
+				</div>
+
+			</div>
+
+
+			<div id="mackonomics">
+
+				<span class="section_title" id="mackonomics_title">#MACKONOMICS</span>
+
+				<h2>Watch two Mack drivers race to see who can get the most out of their mileage. </h2>
+
+				<img id="video" src="Video.png" alt="Video - Watch two Mack drivers race to see who can get the most out of their mileage." />
+
+				<iframe src="https://www.youtube.com/embed/V3psHPq8AN0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+				<p class="body_copy" id="mackonomics_p">
+					We sent owner/operator Jamie "Hell Bent" Hagen on the road to help us highlight 
+					the Mack Anthem HE+ Package. Connect with him to see the results for yourself or follow #Mackonomics on your social channels.
+				</p>
+
+				<a href="https://twitter.com/hellbenthagen" class="gold_button button" id="jamie_button">Follow Jamie</a>
+
+				<div id="tweets">
+
+					<div id="tweet_1" class="tweet">
+
+						<img src="mackonomics_tweet.png" alt="" class="tweet_image">
+
+						<img src="twitter_icon.png" alt="" class="tweet_icon">
+
+						<span class="twitter_handle">@hellbenthagen</span>
+
+						<p class="twitter_copy">
+							Just thought I'd share a little progress report on the @MackEndeavor for the last couple days. With 60,000 miles on it now, it has a lifetime average of 9 mpg. #Mackonomics
+						</p>
+
+					</div>
+
+					<div id="tweet_2" class="tweet">
+
+						<img src="mackonomics_tweet_2.png" alt="" class="tweet_image">
+
+						<img src="twitter_icon.png" alt="" class="tweet_icon">
+
+						<span class="twitter_handle">@hellbenthagen</span>
+
+						<p class="twitter_copy">
+							While I was off getting married I had my first oil change on the "Endeavour" and managed to have my axle hubs preloaded as well. #Mackonomics </p>
+
+					</div>
+
+					<div id="tweet_3" class="tweet">
+
+						<img src="mackonomics_tweet_3.png" alt="" class="tweet_image">
+
+						<img src="twitter_icon.png" alt="" class="tweet_icon">
+
+						<span class="twitter_handle">@hellbenthagen</span>
+
+						<p class="twitter_copy">
+							High expectations lead to disappointment they say. I want that 10 mpg so bad that this is disappointing. Maybe I just need to smile and be happy its not bad. 😊 #Mackonomics
+						</p>
+					</div>
+
+				</div>
+				
+			</div>
+
+			<div id="engine_detail">
+
+				<span class="section_title">ENGINE DETAIL</span>
+
+				<img src="Engine.jpg" alt="Engine" id="engine_image" />
+
+				<h2 id="engine_header">Built to get the most out of every mile.</h2>
+
+				<table id="engine_table">
+
+					<tr>
+
+						<td> <p class="engine_table_copy">New wave piston design delivers a higher compression ratio.</p></td>
+
+						<td><p class="engine_table_copy">Updated gear ratio and turbo compound improves acceleration.</p></td>
+
+					</tr>
+
+					<tr>
+						<td><p class="engine_table_copy">More intelligent EGR valve for improved efficiency.</p></td>
+
+						<td><p class="engine_table_copy">Smaller oil filter housing with two oil filters for less consumption</p></td>
+					</tr>
+
+					<tr>
+
+						<td><p class="engine_table_copy">Lower viscosity oil improves fuel economy.</p></td>
+
+						<td><p class="engine_table_copy">Lighter engine design</p></td>
+					</tr>
+
+				</table>
+
+				<span class="section_title">HE+ PACKAGE</span>
+
+				<div id="carousel">
+
+					<div id="cards">
+
+						<div id="card_1">
+							
+							<h2>Drop your fuel costs by 13% with the Mack HE+ Package.*</h2>
+							
+							<img src="arrow_button.png" alt="" />
+
+						</div>
+
+						<div id="card_2" class="card">
+
+							<p class="card_numbers">01</p>
+
+							<img src="Advanced_Aerodynamics.png" alt="">
+
+							<p class="card_header">Advanced <br> Aerodynamics</p>
+
+							<p class="body_copy_black" id="card_p">The aerodynamic flanges, adjustable trim tabs and 
+								sleek hood design combine to help the Anthem cut through wind to reduce drag. 
+							</p>
+
+						</div>
+
+						<div id="energy_recovery" class="card">
+
+							<p class="card_numbers">02</p>
+
+							<img src="Energy_Recovery_Technology.png" alt="">
+
+							<p class="card_header">Energy Recovery Technology (ERT)</p>
+
+							<p class="body_copy_black" id="card_p">ERT captures heat from the engine exhaust and converts it to torque, 
+								burning up to 9.5% less fuel in highway operations.*
+							</p>
+
+						</div>
+
+						<div id="predictive_cruise" class="card">
+
+							<p class="card_numbers">03</p>
+
+							<img src="Predictive_Cruise.png" alt="">
+
+							<p class="card_header">Mack Predictive Cruise</p>
+
+							<p class="body_copy_black" id="card_p">When cruise control is engaged,this intelligent navigation feature memorizes GPS data of up to 4,500 hills 
+								to engage the ideal shift strategy for repeated routes.
+							</p>
+
+						</div>
+
+						<div id="m_drive" class="card">
+
+							<p class="card_numbers">04</p>
+
+							<img src="mDrive.png" alt="">
+
+							<p class="card_header">mDRIVE &trade; 12-Speed Overdrive Transmission </p>
+
+							<p class="body_copy_black" id="card_p">When cruise control is engaged,this intelligent navigation feature memorizes GPS data of up to 4,500 hills 
+								to engage the ideal shift strategy for repeated routes.
+							</p>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<p id="he_disclaimer">*Compared to similar Mack Anthem<br> without the HE engine and HE+ features.</p>
+
+			</div>
+
+			
+			<div id="calculate">
+
+				<span class="section_title" id="calculate_title">CALCULATE YOUR SAVINGS</span>
+
+				<h2 id="calculate_h2">See how your fuel savings can add up.</h2>
+
+				<div class="slides">
+
+					<span class="slide_container">
+
+						<p class="calculate_p">Select your fleet size.</p>
+						<p><span id="trucks_slider_value">1</span> truck<span id="trucks_slider_plural"></span></p>
+
+						<div class="slider" id="trucks_slider"></div>
+
+					</span>
+
+					<span class="slide_container">
+
+						<p class="calculate_p">Select your average miles per year per truck.</p>
+						<p><span id="miles_slider_value"></span> miles</p>
+
+						<div class="slider" id="miles_slider"></div>
+
+					</span>
+
+					<span class="slide_container">
+
+						<p class="calculate_p">Select your average fuel cost per gallon.</p>
+						<p id="cost_slider_p">$<span id="cost_slider_value"></span></p>
+
+						<div class="slider" id="cost_slider"></div>
+
+					</span>
+
+				</div>
+
+				<fieldset>
+					<input type="radio" name="years" id="year-1" value="1" />
+					<label for="year-1" class="calculate_p">Year 1</label>
+					<input type="radio" name="years" id="year-3" value="3" checked />
+					<label for="year-3" class="calculate_p">Year 3</label>
+					<input type="radio" name="years" id="year-5" value="5" />
+					<label for="year-5" class="calculate_p">Year 5</label>
+				</fieldset>
+				  
+				<p id="savings">$ <span id="savings_value"></span></p>
+				<p id="savings_over">Savings over <br> <span id="savings_years"></span> year<span id="savings_years_plural"></span></p>
+
+				<a class="gold_button button modal-button" id="dealer_button" class="modal-button">Talk to a Dealer</a>
+
+			</div>
+
+			<div id="request_demo">
+
+				<span class="section_title">TAKE THE NEXT STEP</span>
+
+
+				<div id="steering_wheel" class="cta">
+
+					<img src="steering_wheel.png" alt="">
+
+					<p class="next_step_header">Request a Demo</p>
+
+					<p class="next_step_copy">Talk to your local Mack <br> dealer about Mack Anthem.</p>
+
+				</div>
+
+				<div id="build" class="cta">
+
+					<img src="build_your_anthem.png" alt="">
+
+					<p class="next_step_header">Build your Anthem</p>
+
+					<p class="next_step_copy">Design your own Mack <br> Anthem with Truck Builder. </p>
+
+				</div>
+
+				<div id="specs" class="cta">
+
+					<img src="specs.png" alt="">
+
+					<p class="next_step_header">Build your Anthem</p>
+
+					<p class="next_step_copy">Design your own Mack <br> Anthem with Truck Builder. </p>
+
+				</div>
+
+			</div>
+
+			<div id="footer">
+
+				<div id="footer_left">
+
+					<svg width="96" height="10" viewBox="0 0 96 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M94.9529 7.82952C94.9529 7.52326 94.713 7.27026 94.4226 7.27026H93.387V8.93471H93.6648V8.38877H94.2458L94.6499 8.93471H95.0035L94.5867 8.36214C94.7888 8.28225 94.9529 8.08251 94.9529 7.82952ZM93.6648 8.09583V7.56321H94.4099C94.5488 7.56321 94.6625 7.68305 94.6625 7.82952C94.6625 7.97599 94.5488 8.09583 94.4099 8.09583H93.6648Z" fill="white"/>
+						<path d="M94.0943 6.20508C93.0966 6.20508 92.2884 7.05728 92.2884 8.10921C92.2884 9.16114 93.0966 10 94.0943 10C95.0919 10 95.9001 9.14782 95.9001 8.10921C95.9001 7.05728 95.0919 6.20508 94.0943 6.20508ZM94.0943 9.70707C93.2608 9.70707 92.5788 8.98803 92.5788 8.10921C92.5788 7.21706 93.2608 6.49802 94.0943 6.49802C94.9278 6.49802 95.6097 7.21706 95.6097 8.10921C95.6223 8.98803 94.9404 9.70707 94.0943 9.70707Z" fill="white"/>
+						<path d="M22.8195 0H16.2906C16.1265 0 15.9118 0.106525 15.8108 0.252996L11.7444 5.92543C11.6434 6.05859 11.4792 6.05859 11.3908 5.92543L7.29922 0.252996C7.21082 0.11984 6.99614 0 6.83197 0H0.303082C0.138912 0 0 0.146471 0 0.319574V9.58722C0 9.76032 0.138912 9.89348 0.303082 9.89348H4.97559C5.13976 9.89348 5.26605 9.747 5.26605 9.58722V4.59387C5.26605 4.42077 5.34182 4.39414 5.44284 4.5273L9.13034 9.6538C9.23137 9.78695 9.44605 9.90679 9.61022 9.90679H13.5124C13.6766 9.90679 13.8912 9.80027 13.9923 9.6538L17.6798 4.5273C17.7808 4.39414 17.8566 4.42077 17.8566 4.59387V9.58722C17.8566 9.76032 17.9955 9.89348 18.1596 9.89348H22.8322C22.9963 9.89348 23.1226 9.747 23.1226 9.58722V0.319574C23.1226 0.146471 22.9837 0 22.8195 0Z" fill="white"/>
+						<path d="M68.206 0H50.9051C50.7409 0 50.5262 0.106525 50.4252 0.252996L49.718 1.23835C49.617 1.3715 49.5412 1.6245 49.5412 1.7976V8.1225C49.5412 8.2956 49.617 8.5486 49.718 8.68176L50.4252 9.66711C50.5262 9.80027 50.7409 9.9201 50.9051 9.9201H68.206C68.3701 9.9201 68.509 9.77363 68.509 9.60053V7.11052C68.509 6.93742 68.3701 6.79094 68.206 6.79094H55.0724C54.9083 6.79094 54.782 6.64447 54.782 6.47137V3.4221C54.782 3.249 54.9209 3.11584 55.0724 3.11584H68.206C68.3701 3.11584 68.509 2.96937 68.509 2.79627V0.319574C68.509 0.146471 68.3701 0 68.206 0Z" fill="white"/>
+						<path d="M84.5219 3.86152C84.3956 3.75499 84.4083 3.59521 84.5598 3.51531L90.6214 0.146471C90.7603 0.0665779 90.7477 0 90.5836 0H83.5116C83.3475 0 83.0949 0.0665779 82.956 0.146471L76.5534 3.71505C76.4145 3.79494 76.2882 3.71505 76.2882 3.54194V0.306258C76.2882 0.146471 76.1493 0 75.9851 0H71.3126C71.1484 0 71.0222 0.146471 71.0222 0.306258V9.58722C71.0222 9.76032 71.1611 9.90679 71.3126 9.90679H75.9851C76.1493 9.90679 76.2756 9.76032 76.2756 9.58722V8.42876C76.2756 8.25566 76.3892 8.05593 76.5408 7.97603L80.203 5.93875C80.3545 5.85886 80.5692 5.88549 80.6955 5.99201L85.0018 9.70706C85.1281 9.81358 85.368 9.90679 85.5322 9.90679H91.2276C91.3918 9.90679 91.417 9.81358 91.2907 9.70706L84.5219 3.86152Z" fill="white"/>
+						<path d="M41.1686 0.252996C41.0676 0.11984 40.8529 0 40.6887 0H32.3919C32.2277 0 32.013 0.11984 31.912 0.252996L25.1558 9.6538C25.0547 9.78695 25.1053 9.90679 25.2694 9.90679H30.4092C30.5734 9.90679 30.788 9.78695 30.8891 9.6538L31.8109 8.3755C31.912 8.24234 32.1267 8.1225 32.2908 8.1225H40.7771C40.9413 8.1225 41.156 8.22903 41.257 8.3755L42.1789 9.6538C42.2799 9.78695 42.4946 9.90679 42.6588 9.90679H47.7985C47.9627 9.90679 48.0132 9.80027 47.9122 9.6538L41.1686 0.252996ZM39.047 5.37949H34.0588C33.8946 5.37949 33.8441 5.25965 33.9451 5.1265L35.4858 2.96937C35.5868 2.83622 35.8015 2.71638 35.9657 2.71638H37.1528C37.3169 2.71638 37.5316 2.8229 37.6326 2.96937L39.1733 5.1265C39.2617 5.27297 39.2112 5.37949 39.047 5.37949Z" fill="white"/>
+					</svg>
+
+					<p class="fine_print">Copyright 2020 Mack Trucks</p>
+
+				</div>
+
+				<div id="footer_right">
+
+					<div id="social">
+
+						<a href="https://twitter.com/MackTrucks"><img src="twitter_icon_gray.png" alt=""></a>
+
+						<a href="https://www.linkedin.com/company/mack-trucks/"><img src="linked_in_icon.png" alt=""></a>
+
+						<a href="https://www.facebook.com/MackTrucks/"><img src="facebook_icon.png" alt=""></a>
+
+						<a href="https://www.youtube.com/channel/UC6ScTMFpIAE001dEgLYUzYw"><img src="youtube_icon.png" alt=""></a>
+
+						<a href="https://www.instagram.com/macktrucks/"><img src="instagram_icon.png" alt=""></a>
+
+					</div>
+	
+					<a href="https://www.macktrucks.com/about-mack/contact-us/" class="fine_print" id="privacy">Privacy / Contact Us</a>
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+	</div>
+
+	<div class="sidebar">
+
+		<div class="close"></div>
+		
+		<div class="sidebar-content">
+
+			<div class="sidebar-content-form">
+
+				<h4 class="heavy">Connect with a Mack dealer for a breakdown of your fuel savings.</h4>
+
+				<!-- Start Eloqua Form Code -->
+
+				<style type="text/css">
+					.elq-form .elq-required{
+					  color:red!important;
+					  display:inline;
+					  float:none;
+					  font-weight:700;
+					  margin:0;
+					  padding:0}
+					.elq-form .elq-label{
+					  display:inline-block;
+					  max-width:100%;
+					  font-weight:400;
+					  box-sizing:border-box;
+					  margin-bottom:0}
+					.elq-form .elq-label-top{
+					  padding-bottom:3px}
+					.elq-form .elq-item-label{
+					  max-width:100%;
+					  font-weight:400;
+					  box-sizing:border-box}
+					.elq-form .list-order{
+					  margin-left:0;
+					  white-space:nowrap;
+					  overflow:hidden;
+					  text-overflow:ellipsis}
+					.elq-form .one-column{
+					  width:100%;
+					  clear:both}
+					.elq-form .two-column{
+					  float:left;
+					  width:38%}
+					.elq-form .three-column{
+					  float:left;
+					  width:30%}
+					.elq-form .elq-item-textarea{
+					  resize:vertical;
+					  min-height:48px;
+					  max-height:360px;
+					  box-sizing:border-box}
+					.elq-form .elq-item-input,.elq-form .elq-item-select,.elq-form .elq-item-textarea{
+					  font-family:inherit;
+					  font-size:inherit;
+					  line-height:inherit;
+					  color:inherit;
+					  font:inherit;
+					  margin:0}
+					.elq-form .elq-item-select{
+					  text-transform:none}
+					.elq-form .row.single-checkbox-row{
+					  margin-left:0}
+					.elq-form .elq-field-style{
+					  padding-bottom:10px}
+					.elq-form .elq-field-style input[type=submit]{
+					  -webkit-appearance:square-button}
+					@-webkit-keyframes spin{
+					  0%{
+						-webkit-transform:rotate(0deg)}
+					  to{
+						-webkit-transform:rotate(1turn)}
+					}
+					@keyframes spin{
+					  0%{
+						transform:rotate(0deg)}
+					  to{
+						transform:rotate(1turn)}
+					}
+					.elq-form .loader{
+					  vertical-align:middle;
+					  display:inline-block;
+					  margin-left:10px;
+					  border:3px solid #f3f3f3;
+					  border-radius:50%;
+					  border-top:3px solid #3498db;
+					  width:20px;
+					  height:20px;
+					  -webkit-animation:spin 2s linear infinite;
+					  animation:spin 2s linear infinite}
+					.elq-form input[type=checkbox],.elq-form input[type=radio]{
+					  margin:0}
+					.elq-form .list-order input[type=radio]{
+					  margin-left:1px}
+					.elq-form *,.elq-form :after,.elq-form :before{
+					  box-sizing:border-box}
+					.elq-form html{
+					  font-size:10px;
+					  -webkit-tap-highlight-color:transparent}
+					.elq-form body{
+					  font-family:Helvetica Neue,Helvetica,Arial,sans-serif;
+					  font-size:14px;
+					  line-height:1.42857;
+					  color:#333;
+					  background-color:#fff}
+					.elq-form button,.elq-form input,.elq-form select,.elq-form textarea{
+					  font-family:inherit;
+					  font-size:inherit;
+					  line-height:inherit}
+					.elq-form a{
+					  color:#337ab7;
+					  text-decoration:none}
+					.elq-form a:focus,.elq-form a:hover{
+					  color:#23527c;
+					  text-decoration:underline}
+					.elq-form a:focus{
+					  outline:5px auto -webkit-focus-ring-color;
+					  outline-offset:-2px}
+					.elq-form figure{
+					  margin:0}
+					.elq-form img{
+					  vertical-align:middle}
+					.elq-form .img-responsive{
+					  display:block;
+					  max-width:100%;
+					  height:auto}
+					.elq-form .img-rounded{
+					  border-radius:6px}
+					.elq-form .img-thumbnail{
+					  padding:4px;
+					  line-height:1.42857;
+					  background-color:#fff;
+					  border:1px solid #ddd;
+					  border-radius:4px;
+					  transition:all .2s ease-in-out;
+					  display:inline-block;
+					  max-width:100%;
+					  height:auto}
+					.elq-form .img-circle{
+					  border-radius:50%}
+					.elq-form hr{
+					  margin-top:20px;
+					  margin-bottom:20px;
+					  border:0;
+					  border-top:1px solid #eee}
+					.elq-form .sr-only{
+					  position:absolute;
+					  width:1px;
+					  height:1px;
+					  padding:0;
+					  margin:-1px;
+					  overflow:hidden;
+					  clip:rect(0,0,0,0);
+					  border:0}
+					.elq-form .sr-only-focusable:active,.elq-form .sr-only-focusable:focus{
+					  position:static;
+					  width:auto;
+					  height:auto;
+					  margin:0;
+					  overflow:visible;
+					  clip:auto}
+					.elq-form [role=button]{
+					  cursor:pointer}
+					.elq-form .container{
+					  padding-right:15px;
+					  padding-left:15px;
+					  margin-right:auto;
+					  margin-left:auto}
+					.elq-form .container:after,.elq-form .container:before{
+					  display:table;
+					  content:" "}
+					.elq-form .container:after{
+					  clear:both}
+					@media (min-width:768px){
+					  .elq-form .container{
+						width:750px}
+					}
+					@media (min-width:992px){
+					  .elq-form .container{
+						width:970px}
+					}
+					@media (min-width:1200px){
+					  .elq-form .container{
+						width:1170px}
+					}
+					.elq-form .container-fluid{
+					  padding-right:15px;
+					  padding-left:15px;
+					  margin-right:auto;
+					  margin-left:auto}
+					.elq-form .container-fluid:after,.elq-form .container-fluid:before{
+					  display:table;
+					  content:" "}
+					.elq-form .container-fluid:after{
+					  clear:both}
+					.elq-form .row{
+					  margin-right:-15px;
+					  margin-left:-15px}
+					.elq-form .row:after,.elq-form .row:before{
+					  display:table;
+					  content:" "}
+					.elq-form .row:after{
+					  clear:both}
+					.elq-form .row-no-gutters{
+					  margin-right:0;
+					  margin-left:0}
+					.elq-form .row-no-gutters [class*=col-]{
+					  padding-right:0;
+					  padding-left:0}
+					.elq-form .col-lg-1,.elq-form .col-lg-2,.elq-form .col-lg-3,.elq-form .col-lg-4,.elq-form .col-lg-5,.elq-form .col-lg-6,.elq-form .col-lg-7,.elq-form .col-lg-8,.elq-form .col-lg-9,.elq-form .col-lg-10,.elq-form .col-lg-11,.elq-form .col-lg-12,.elq-form .col-md-1,.elq-form .col-md-2,.elq-form .col-md-3,.elq-form .col-md-4,.elq-form .col-md-5,.elq-form .col-md-6,.elq-form .col-md-7,.elq-form .col-md-8,.elq-form .col-md-9,.elq-form .col-md-10,.elq-form .col-md-11,.elq-form .col-md-12,.elq-form .col-sm-1,.elq-form .col-sm-2,.elq-form .col-sm-3,.elq-form .col-sm-4,.elq-form .col-sm-5,.elq-form .col-sm-6,.elq-form .col-sm-7,.elq-form .col-sm-8,.elq-form .col-sm-9,.elq-form .col-sm-10,.elq-form .col-sm-11,.elq-form .col-sm-12,.elq-form .col-xs-1,.elq-form .col-xs-2,.elq-form .col-xs-3,.elq-form .col-xs-4,.elq-form .col-xs-5,.elq-form .col-xs-6,.elq-form .col-xs-7,.elq-form .col-xs-8,.elq-form .col-xs-9,.elq-form .col-xs-10,.elq-form .col-xs-11,.elq-form .col-xs-12{
+					  position:relative;
+					  min-height:1px;
+					  padding-right:15px;
+					  padding-left:15px}
+					.elq-form .col-xs-1,.elq-form .col-xs-2,.elq-form .col-xs-3,.elq-form .col-xs-4,.elq-form .col-xs-5,.elq-form .col-xs-6,.elq-form .col-xs-7,.elq-form .col-xs-8,.elq-form .col-xs-9,.elq-form .col-xs-10,.elq-form .col-xs-11,.elq-form .col-xs-12{
+					  float:left}
+					.elq-form .col-xs-1{
+					  width:8.33333%}
+					.elq-form .col-xs-2{
+					  width:16.66667%}
+					.elq-form .col-xs-3{
+					  width:25%}
+					.elq-form .col-xs-4{
+					  width:33.33333%}
+					.elq-form .col-xs-5{
+					  width:41.66667%}
+					.elq-form .col-xs-6{
+					  width:50%}
+					.elq-form .col-xs-7{
+					  width:58.33333%}
+					.elq-form .col-xs-8{
+					  width:66.66667%}
+					.elq-form .col-xs-9{
+					  width:75%}
+					.elq-form .col-xs-10{
+					  width:83.33333%}
+					.elq-form .col-xs-11{
+					  width:91.66667%}
+					.elq-form .col-xs-12{
+					  width:100%}
+					.elq-form .col-xs-pull-0{
+					  right:auto}
+					.elq-form .col-xs-pull-1{
+					  right:8.33333%}
+					.elq-form .col-xs-pull-2{
+					  right:16.66667%}
+					.elq-form .col-xs-pull-3{
+					  right:25%}
+					.elq-form .col-xs-pull-4{
+					  right:33.33333%}
+					.elq-form .col-xs-pull-5{
+					  right:41.66667%}
+					.elq-form .col-xs-pull-6{
+					  right:50%}
+					.elq-form .col-xs-pull-7{
+					  right:58.33333%}
+					.elq-form .col-xs-pull-8{
+					  right:66.66667%}
+					.elq-form .col-xs-pull-9{
+					  right:75%}
+					.elq-form .col-xs-pull-10{
+					  right:83.33333%}
+					.elq-form .col-xs-pull-11{
+					  right:91.66667%}
+					.elq-form .col-xs-pull-12{
+					  right:100%}
+					.elq-form .col-xs-push-0{
+					  left:auto}
+					.elq-form .col-xs-push-1{
+					  left:8.33333%}
+					.elq-form .col-xs-push-2{
+					  left:16.66667%}
+					.elq-form .col-xs-push-3{
+					  left:25%}
+					.elq-form .col-xs-push-4{
+					  left:33.33333%}
+					.elq-form .col-xs-push-5{
+					  left:41.66667%}
+					.elq-form .col-xs-push-6{
+					  left:50%}
+					.elq-form .col-xs-push-7{
+					  left:58.33333%}
+					.elq-form .col-xs-push-8{
+					  left:66.66667%}
+					.elq-form .col-xs-push-9{
+					  left:75%}
+					.elq-form .col-xs-push-10{
+					  left:83.33333%}
+					.elq-form .col-xs-push-11{
+					  left:91.66667%}
+					.elq-form .col-xs-push-12{
+					  left:100%}
+					.elq-form .col-xs-offset-0{
+					  margin-left:0}
+					.elq-form .col-xs-offset-1{
+					  margin-left:8.33333%}
+					.elq-form .col-xs-offset-2{
+					  margin-left:16.66667%}
+					.elq-form .col-xs-offset-3{
+					  margin-left:25%}
+					.elq-form .col-xs-offset-4{
+					  margin-left:33.33333%}
+					.elq-form .col-xs-offset-5{
+					  margin-left:41.66667%}
+					.elq-form .col-xs-offset-6{
+					  margin-left:50%}
+					.elq-form .col-xs-offset-7{
+					  margin-left:58.33333%}
+					.elq-form .col-xs-offset-8{
+					  margin-left:66.66667%}
+					.elq-form .col-xs-offset-9{
+					  margin-left:75%}
+					.elq-form .col-xs-offset-10{
+					  margin-left:83.33333%}
+					.elq-form .col-xs-offset-11{
+					  margin-left:91.66667%}
+					.elq-form .col-xs-offset-12{
+					  margin-left:100%}
+					@media (min-width:768px){
+					  .elq-form .col-sm-1,.elq-form .col-sm-2,.elq-form .col-sm-3,.elq-form .col-sm-4,.elq-form .col-sm-5,.elq-form .col-sm-6,.elq-form .col-sm-7,.elq-form .col-sm-8,.elq-form .col-sm-9,.elq-form .col-sm-10,.elq-form .col-sm-11,.elq-form .col-sm-12{
+						float:left}
+					  .elq-form .col-sm-1{
+						width:8.33333%}
+					  .elq-form .col-sm-2{
+						width:16.66667%}
+					  .elq-form .col-sm-3{
+						width:25%}
+					  .elq-form .col-sm-4{
+						width:33.33333%}
+					  .elq-form .col-sm-5{
+						width:41.66667%}
+					  .elq-form .col-sm-6{
+						width:50%}
+					  .elq-form .col-sm-7{
+						width:58.33333%}
+					  .elq-form .col-sm-8{
+						width:66.66667%}
+					  .elq-form .col-sm-9{
+						width:75%}
+					  .elq-form .col-sm-10{
+						width:83.33333%}
+					  .elq-form .col-sm-11{
+						width:91.66667%}
+					  .elq-form .col-sm-12{
+						width:100%}
+					  .elq-form .col-sm-pull-0{
+						right:auto}
+					  .elq-form .col-sm-pull-1{
+						right:8.33333%}
+					  .elq-form .col-sm-pull-2{
+						right:16.66667%}
+					  .elq-form .col-sm-pull-3{
+						right:25%}
+					  .elq-form .col-sm-pull-4{
+						right:33.33333%}
+					  .elq-form .col-sm-pull-5{
+						right:41.66667%}
+					  .elq-form .col-sm-pull-6{
+						right:50%}
+					  .elq-form .col-sm-pull-7{
+						right:58.33333%}
+					  .elq-form .col-sm-pull-8{
+						right:66.66667%}
+					  .elq-form .col-sm-pull-9{
+						right:75%}
+					  .elq-form .col-sm-pull-10{
+						right:83.33333%}
+					  .elq-form .col-sm-pull-11{
+						right:91.66667%}
+					  .elq-form .col-sm-pull-12{
+						right:100%}
+					  .elq-form .col-sm-push-0{
+						left:auto}
+					  .elq-form .col-sm-push-1{
+						left:8.33333%}
+					  .elq-form .col-sm-push-2{
+						left:16.66667%}
+					  .elq-form .col-sm-push-3{
+						left:25%}
+					  .elq-form .col-sm-push-4{
+						left:33.33333%}
+					  .elq-form .col-sm-push-5{
+						left:41.66667%}
+					  .elq-form .col-sm-push-6{
+						left:50%}
+					  .elq-form .col-sm-push-7{
+						left:58.33333%}
+					  .elq-form .col-sm-push-8{
+						left:66.66667%}
+					  .elq-form .col-sm-push-9{
+						left:75%}
+					  .elq-form .col-sm-push-10{
+						left:83.33333%}
+					  .elq-form .col-sm-push-11{
+						left:91.66667%}
+					  .elq-form .col-sm-push-12{
+						left:100%}
+					  .elq-form .col-sm-offset-0{
+						margin-left:0}
+					  .elq-form .col-sm-offset-1{
+						margin-left:8.33333%}
+					  .elq-form .col-sm-offset-2{
+						margin-left:16.66667%}
+					  .elq-form .col-sm-offset-3{
+						margin-left:25%}
+					  .elq-form .col-sm-offset-4{
+						margin-left:33.33333%}
+					  .elq-form .col-sm-offset-5{
+						margin-left:41.66667%}
+					  .elq-form .col-sm-offset-6{
+						margin-left:50%}
+					  .elq-form .col-sm-offset-7{
+						margin-left:58.33333%}
+					  .elq-form .col-sm-offset-8{
+						margin-left:66.66667%}
+					  .elq-form .col-sm-offset-9{
+						margin-left:75%}
+					  .elq-form .col-sm-offset-10{
+						margin-left:83.33333%}
+					  .elq-form .col-sm-offset-11{
+						margin-left:91.66667%}
+					  .elq-form .col-sm-offset-12{
+						margin-left:100%}
+					}
+					@media (min-width:992px){
+					  .elq-form .col-md-1,.elq-form .col-md-2,.elq-form .col-md-3,.elq-form .col-md-4,.elq-form .col-md-5,.elq-form .col-md-6,.elq-form .col-md-7,.elq-form .col-md-8,.elq-form .col-md-9,.elq-form .col-md-10,.elq-form .col-md-11,.elq-form .col-md-12{
+						float:left}
+					  .elq-form .col-md-1{
+						width:8.33333%}
+					  .elq-form .col-md-2{
+						width:16.66667%}
+					  .elq-form .col-md-3{
+						width:25%}
+					  .elq-form .col-md-4{
+						width:33.33333%}
+					  .elq-form .col-md-5{
+						width:41.66667%}
+					  .elq-form .col-md-6{
+						width:50%}
+					  .elq-form .col-md-7{
+						width:58.33333%}
+					  .elq-form .col-md-8{
+						width:66.66667%}
+					  .elq-form .col-md-9{
+						width:75%}
+					  .elq-form .col-md-10{
+						width:83.33333%}
+					  .elq-form .col-md-11{
+						width:91.66667%}
+					  .elq-form .col-md-12{
+						width:100%}
+					  .elq-form .col-md-pull-0{
+						right:auto}
+					  .elq-form .col-md-pull-1{
+						right:8.33333%}
+					  .elq-form .col-md-pull-2{
+						right:16.66667%}
+					  .elq-form .col-md-pull-3{
+						right:25%}
+					  .elq-form .col-md-pull-4{
+						right:33.33333%}
+					  .elq-form .col-md-pull-5{
+						right:41.66667%}
+					  .elq-form .col-md-pull-6{
+						right:50%}
+					  .elq-form .col-md-pull-7{
+						right:58.33333%}
+					  .elq-form .col-md-pull-8{
+						right:66.66667%}
+					  .elq-form .col-md-pull-9{
+						right:75%}
+					  .elq-form .col-md-pull-10{
+						right:83.33333%}
+					  .elq-form .col-md-pull-11{
+						right:91.66667%}
+					  .elq-form .col-md-pull-12{
+						right:100%}
+					  .elq-form .col-md-push-0{
+						left:auto}
+					  .elq-form .col-md-push-1{
+						left:8.33333%}
+					  .elq-form .col-md-push-2{
+						left:16.66667%}
+					  .elq-form .col-md-push-3{
+						left:25%}
+					  .elq-form .col-md-push-4{
+						left:33.33333%}
+					  .elq-form .col-md-push-5{
+						left:41.66667%}
+					  .elq-form .col-md-push-6{
+						left:50%}
+					  .elq-form .col-md-push-7{
+						left:58.33333%}
+					  .elq-form .col-md-push-8{
+						left:66.66667%}
+					  .elq-form .col-md-push-9{
+						left:75%}
+					  .elq-form .col-md-push-10{
+						left:83.33333%}
+					  .elq-form .col-md-push-11{
+						left:91.66667%}
+					  .elq-form .col-md-push-12{
+						left:100%}
+					  .elq-form .col-md-offset-0{
+						margin-left:0}
+					  .elq-form .col-md-offset-1{
+						margin-left:8.33333%}
+					  .elq-form .col-md-offset-2{
+						margin-left:16.66667%}
+					  .elq-form .col-md-offset-3{
+						margin-left:25%}
+					  .elq-form .col-md-offset-4{
+						margin-left:33.33333%}
+					  .elq-form .col-md-offset-5{
+						margin-left:41.66667%}
+					  .elq-form .col-md-offset-6{
+						margin-left:50%}
+					  .elq-form .col-md-offset-7{
+						margin-left:58.33333%}
+					  .elq-form .col-md-offset-8{
+						margin-left:66.66667%}
+					  .elq-form .col-md-offset-9{
+						margin-left:75%}
+					  .elq-form .col-md-offset-10{
+						margin-left:83.33333%}
+					  .elq-form .col-md-offset-11{
+						margin-left:91.66667%}
+					  .elq-form .col-md-offset-12{
+						margin-left:100%}
+					}
+					@media (min-width:1200px){
+					  .elq-form .col-lg-1,.elq-form .col-lg-2,.elq-form .col-lg-3,.elq-form .col-lg-4,.elq-form .col-lg-5,.elq-form .col-lg-6,.elq-form .col-lg-7,.elq-form .col-lg-8,.elq-form .col-lg-9,.elq-form .col-lg-10,.elq-form .col-lg-11,.elq-form .col-lg-12{
+						float:left}
+					  .elq-form .col-lg-1{
+						width:8.33333%}
+					  .elq-form .col-lg-2{
+						width:16.66667%}
+					  .elq-form .col-lg-3{
+						width:25%}
+					  .elq-form .col-lg-4{
+						width:33.33333%}
+					  .elq-form .col-lg-5{
+						width:41.66667%}
+					  .elq-form .col-lg-6{
+						width:50%}
+					  .elq-form .col-lg-7{
+						width:58.33333%}
+					  .elq-form .col-lg-8{
+						width:66.66667%}
+					  .elq-form .col-lg-9{
+						width:75%}
+					  .elq-form .col-lg-10{
+						width:83.33333%}
+					  .elq-form .col-lg-11{
+						width:91.66667%}
+					  .elq-form .col-lg-12{
+						width:100%}
+					  .elq-form .col-lg-pull-0{
+						right:auto}
+					  .elq-form .col-lg-pull-1{
+						right:8.33333%}
+					  .elq-form .col-lg-pull-2{
+						right:16.66667%}
+					  .elq-form .col-lg-pull-3{
+						right:25%}
+					  .elq-form .col-lg-pull-4{
+						right:33.33333%}
+					  .elq-form .col-lg-pull-5{
+						right:41.66667%}
+					  .elq-form .col-lg-pull-6{
+						right:50%}
+					  .elq-form .col-lg-pull-7{
+						right:58.33333%}
+					  .elq-form .col-lg-pull-8{
+						right:66.66667%}
+					  .elq-form .col-lg-pull-9{
+						right:75%}
+					  .elq-form .col-lg-pull-10{
+						right:83.33333%}
+					  .elq-form .col-lg-pull-11{
+						right:91.66667%}
+					  .elq-form .col-lg-pull-12{
+						right:100%}
+					  .elq-form .col-lg-push-0{
+						left:auto}
+					  .elq-form .col-lg-push-1{
+						left:8.33333%}
+					  .elq-form .col-lg-push-2{
+						left:16.66667%}
+					  .elq-form .col-lg-push-3{
+						left:25%}
+					  .elq-form .col-lg-push-4{
+						left:33.33333%}
+					  .elq-form .col-lg-push-5{
+						left:41.66667%}
+					  .elq-form .col-lg-push-6{
+						left:50%}
+					  .elq-form .col-lg-push-7{
+						left:58.33333%}
+					  .elq-form .col-lg-push-8{
+						left:66.66667%}
+					  .elq-form .col-lg-push-9{
+						left:75%}
+					  .elq-form .col-lg-push-10{
+						left:83.33333%}
+					  .elq-form .col-lg-push-11{
+						left:91.66667%}
+					  .elq-form .col-lg-push-12{
+						left:100%}
+					  .elq-form .col-lg-offset-0{
+						margin-left:0}
+					  .elq-form .col-lg-offset-1{
+						margin-left:8.33333%}
+					  .elq-form .col-lg-offset-2{
+						margin-left:16.66667%}
+					  .elq-form .col-lg-offset-3{
+						margin-left:25%}
+					  .elq-form .col-lg-offset-4{
+						margin-left:33.33333%}
+					  .elq-form .col-lg-offset-5{
+						margin-left:41.66667%}
+					  .elq-form .col-lg-offset-6{
+						margin-left:50%}
+					  .elq-form .col-lg-offset-7{
+						margin-left:58.33333%}
+					  .elq-form .col-lg-offset-8{
+						margin-left:66.66667%}
+					  .elq-form .col-lg-offset-9{
+						margin-left:75%}
+					  .elq-form .col-lg-offset-10{
+						margin-left:83.33333%}
+					  .elq-form .col-lg-offset-11{
+						margin-left:91.66667%}
+					  .elq-form .col-lg-offset-12{
+						margin-left:100%}
+					}
+					.elq-form .row{
+					  display:inherit}
+					.LV_invalid_field,input.LV_invalid_field:active,input.LV_invalid_field:hover,textarea.LV_invalid_field:active,textarea.LV_invalid_field:hover{
+					  outline:1px solid #c00}
+					.LV_validation_message{
+					  font-weight:700;
+					  margin:0 0 0 5px}
+					.LV_valid{
+					  display:none}
+					.LV_invalid{
+					  color:#c00;
+					  font-size:10px}
+					.submit-button-style{
+					  padding:7px 20px;
+					  border:1px solid #979797;
+					  border-radius:3px;
+					  background-color:#fff;
+					  color:#4a4a4a;
+					  cursor:pointer}
+					.checkbox-aligned{
+					  margin-left:5px;
+					  display:inline}
+					.form-element-layout{
+					  padding:5px 10px}
+					.form-element-instruction{
+					  font-size:10px}
+					.form-element-form-text{
+					  margin:0}
+					.form-field-visible-xs-block{
+					  display:none}
+					.elq-form-design-field .list-order input[type=radio]{
+					  margin-left:1px}
+					@media (max-width:767px){
+					  .form-field-visible-xs-block{
+						display:block}
+					}
+					.form-field-hidden-xs{
+					  display:block}
+					@media (max-width:767px){
+					  .form-field-hidden-xs{
+						display:none}
+					}
+				  </style>
+
+				  <form method="post" name="copyOfTrucksHEMackonomics19Q2CUFR-1563458670598" action="https://s1219509997.t.eloqua.com/e/f2" onsubmit="return handleFormSubmit(this)" id="form157" class="elq-form">
+					<input value="copyOfTrucksHEMackonomics19Q2CUFR-1563458670598" type="hidden" name="elqFormName">
+					<input value="1219509997" type="hidden" name="elqSiteId">
+					<input name="elqCampaignId" type="hidden">
+					<div class="layout container-fluid">
+					  <div class="row">
+						<div class="grid-layout-col">
+						  <div class="layout-col col-sm-12 col-xs-12">
+							<div id="formElement0" class="elq-field-style form-element-layout row">
+							  <div style="text-align:left;" class="col-sm-12 col-xs-12">
+								<label class="elq-label " for="fe1858">Email Address
+								  <span class="elq-required">*
+								  </span>
+								</label>
+							  </div>
+							  <div class="col-sm-12 col-xs-12">
+								<div class="row">
+								  <div class="col-xs-12">
+									<div class="field-control-wrapper">
+									  <input type="text" class="elq-item-input" name="emailAddress" id="fe1858" value="~~eloqua..type--emailfield..syntax--EmailAddress~~" style="width:100%;">
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="row">
+						<div class="grid-layout-col">
+						  <div class="layout-col col-sm-12 col-xs-12">
+							<div id="formElement1" class="elq-field-style form-element-layout row">
+							  <div style="text-align:left;" class="col-sm-12 col-xs-12">
+								<label class="elq-label " for="fe1859">First Name
+								  <span class="elq-required">*
+								  </span>
+								</label>
+							  </div>
+							  <div class="col-sm-12 col-xs-12">
+								<div class="row">
+								  <div class="col-xs-12">
+									<div class="field-control-wrapper">
+									  <input type="text" class="elq-item-input" name="firstName" id="fe1859" value="~~eloqua..type--emailfield..syntax--FirstName~~" style="width:100%;">
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="row">
+						<div class="grid-layout-col">
+						  <div class="layout-col col-sm-12 col-xs-12">
+							<div id="formElement2" class="elq-field-style form-element-layout row">
+							  <div style="text-align:left;" class="col-sm-12 col-xs-12">
+								<label class="elq-label " for="fe1860">Last Name
+								  <span class="elq-required">*
+								  </span>
+								</label>
+							  </div>
+							  <div class="col-sm-12 col-xs-12">
+								<div class="row">
+								  <div class="col-xs-12">
+									<div class="field-control-wrapper">
+									  <input type="text" class="elq-item-input" name="lastName" id="fe1860" value="~~eloqua..type--emailfield..syntax--LastName~~" style="width:100%;">
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="row">
+						<div class="grid-layout-col">
+						  <div class="layout-col col-sm-12 col-xs-12">
+							<div id="formElement3" class="elq-field-style form-element-layout row">
+							  <div style="text-align:left;" class="col-sm-12 col-xs-12">
+								<label class="elq-label " for="fe1861">Company Name
+								  <span class="elq-required">*
+								  </span>
+								</label>
+							  </div>
+							  <div class="col-sm-12 col-xs-12">
+								<div class="row">
+								  <div class="col-xs-12">
+									<div class="field-control-wrapper">
+									  <input type="text" class="elq-item-input" name="company" id="fe1861" value="~~eloqua..type--emailfield..syntax--Company~~" style="width:100%;">
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="row">
+						<div class="grid-layout-col">
+						  <div class="layout-col col-sm-12 col-xs-12">
+							<div id="formElement4" class="elq-field-style form-element-layout row">
+							  <div style="text-align:left;" class="col-sm-12 col-xs-12">
+								<label class="elq-label " for="fe1873">Title
+								  <span class="elq-required">*
+								  </span>
+								</label>
+							  </div>
+							  <div class="col-sm-12 col-xs-12">
+								<div class="row">
+								  <div class="col-xs-12">
+									<div class="field-control-wrapper">
+									  <select class="elq-item-select" id="fe1873" name="title" style="width:100%;" data-value="~~eloqua..type--emailfield..syntax--Title1~~">
+										<option value="">Select One...
+										</option>
+										<option value="Owner/Operator">Owner/Operator
+										</option>
+										<option value="CEO">CEO
+										</option>
+										<option value="CFO">CFO
+										</option>
+										<option value="Purchasing/Procurement">Purchasing/Procurement
+										</option>
+										<option value="Fleet/Transportation/Equipment">Fleet/Transportation/Equipment
+										</option>
+										<option value="Maintenance">Maintenance
+										</option>
+										<option value="Finance/Accounting">Finance/Accounting
+										</option>
+										<option value="Driver">Driver
+										</option>
+										<option value="Other">Other
+										</option>
+									  </select>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="row">
+						<div class="grid-layout-col">
+						  <div class="layout-col col-sm-12 col-xs-12">
+							<div id="formElement5" class="elq-field-style form-element-layout row">
+							  <div style="text-align:left;" class="col-sm-12 col-xs-12">
+								<label class="elq-label " for="fe1878">Industry
+								  <span class="elq-required">*
+								  </span>
+								</label>
+							  </div>
+							  <div class="col-sm-12 col-xs-12">
+								<div class="row">
+								  <div class="col-xs-12">
+									<div class="field-control-wrapper">
+									  <select class="elq-item-select" id="fe1878" name="industry1" style="width:100%;" data-value="">
+										<option value="">Select Industry…
+										</option>
+										<option value="Agriculture/Farm">Agriculture/Farm
+										</option>
+										<option value="Bulk">Bulk
+										</option>
+										<option value="Construction">Construction
+										</option>
+										<option value="Food and Beverage">Food and Beverage
+										</option>
+										<option value="General Freight">General Freight
+										</option>
+										<option value="Government/Municipal">Government/Municipal
+										</option>
+										<option value="Lease/Rental">Lease/Rental
+										</option>
+										<option value="Refuse">Refuse
+										</option>
+										<option value="Services">Services
+										</option>
+										<option value="Specialized Hauling">Specialized Hauling
+										</option>
+										<option value="Utility">Utility
+										</option>
+										<option value="Wholesale/Retail">Wholesale/Retail
+										</option>
+										<option value="Other">Other
+										</option>
+									  </select>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="row">
+						<div class="grid-layout-col">
+						  <div class="layout-col col-sm-12 col-xs-12">
+							<div id="formElement6" class="elq-field-style form-element-layout row">
+							  <div style="text-align:left;" class="col-sm-12 col-xs-12">
+								<label class="elq-label " for="fe1866">Zip or Postal Code
+								  <span class="elq-required">*
+								  </span>
+								</label>
+							  </div>
+							  <div class="col-sm-12 col-xs-12">
+								<div class="row">
+								  <div class="col-xs-12">
+									<div class="field-control-wrapper">
+									  <input type="text" class="elq-item-input" name="zipPostal" id="fe1866" value="~~eloqua..type--emailfield..syntax--Zip_Postal~~" style="width:100%;">
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="row">
+						<div class="grid-layout-col">
+						  <div class="layout-col col-sm-12 col-xs-12">
+							<div id="formElement7" class="elq-field-style form-element-layout row">
+							  <div style="text-align:left;" class="col-sm-12 col-xs-12">
+								<label class="elq-label " for="fe1867">Country
+								  <span class="elq-required">*
+								  </span>
+								</label>
+							  </div>
+							  <div class="col-sm-12 col-xs-12">
+								<div class="row">
+								  <div class="col-xs-12">
+									<div class="field-control-wrapper">
+									  <select class="elq-item-select" id="fe1867" name="country" style="width:100%;" data-value="~~eloqua..type--emailfield..syntax--Country~~">
+										<option value="">Select Country...
+										</option>
+										<option value="US">UNITED STATES
+										</option>
+										<option value="CA">CANADA
+										</option>
+										<option value="AL">ALBANIA
+										</option>
+										<option value="DZ">ALGERIA
+										</option>
+										<option value="AS">AMERICAN SAMOA
+										</option>
+										<option value="AD">ANDORRA
+										</option>
+										<option value="AO">ANGOLA
+										</option>
+										<option value="AI">ANGUILLA
+										</option>
+										<option value="AG">ANTIGUA & BARBUDA
+										</option>
+										<option value="AR">ARGENTINA
+										</option>
+										<option value="AM">ARMENIA
+										</option>
+										<option value="AW">ARUBA
+										</option>
+										<option value="AU">AUSTRALIA
+										</option>
+										<option value="AT">AUSTRIA
+										</option>
+										<option value="AZ">AZERBAIJAN
+										</option>
+										<option value="BS">BAHAMAS
+										</option>
+										<option value="BH">BAHRAIN
+										</option>
+										<option value="BD">BANGLADESH
+										</option>
+										<option value="BB">BARBADOS
+										</option>
+										<option value="BE">BELGIUM
+										</option>
+										<option value="BZ">BELIZE
+										</option>
+										<option value="BJ">BENIN, PEOPLES REPUBLIC OF
+										</option>
+										<option value="BM">BERMUDA
+										</option>
+										<option value="BT">BHUTAN
+										</option>
+										<option value="BO">BOLIVIA
+										</option>
+										<option value="BA">BOSNIA AND HERZEGOVINA
+										</option>
+										<option value="BW">BOTSWANA
+										</option>
+										<option value="BR">BRAZIL
+										</option>
+										<option value="VG">BRITISH VIRGIN ISLANDS
+										</option>
+										<option value="BN">BRUNEI
+										</option>
+										<option value="BG">BULGARIA
+										</option>
+										<option value="BF">BURKINA FASO
+										</option>
+										<option value="MM">BURMA (MYANMAR)
+										</option>
+										<option value="BI">BURUNDI
+										</option>
+										<option value="BY">BYELORUSSIA
+										</option>
+										<option value="CM">CAMEROON
+										</option>
+										<option value="CV">CAPE VERDE, REPUBLIC OF
+										</option>
+										<option value="KY">CAYMAN ISLANDS
+										</option>
+										<option value="CF">CENTRAL AFRICA REPUBLIC
+										</option>
+										<option value="TD">CHAD, REPUBLIC OF
+										</option>
+										<option value="CL">CHILE
+										</option>
+										<option value="CN">CHINA, PEOPLES REPUBLIC OF
+										</option>
+										<option value="CX">CHRISTMAS ISLAND
+										</option>
+										<option value="CO">COLOMBIA
+										</option>
+										<option value="KM">COMOROS REPUBLIC
+										</option>
+										<option value="CG">CONGO DEMOCRATIC REPUBLIC
+										</option>
+										<option value="CK">COOK ISLANDS
+										</option>
+										<option value="CR">COSTA RICA
+										</option>
+										<option value="HR">CROATIA
+										</option>
+										<option value="CY">CYPRUS
+										</option>
+										<option value="CZ">CZECH REPUBLIC
+										</option>
+										<option value="DK">DENMARK
+										</option>
+										<option value="DJ">DJIBOUTI
+										</option>
+										<option value="DM">DOMINICA
+										</option>
+										<option value="DO">DOMINICAN REPUBLIC
+										</option>
+										<option value="EC">ECUADOR
+										</option>
+										<option value="EG">EGYPT
+										</option>
+										<option value="SV">EL SALVADOR
+										</option>
+										<option value="GQ">EQUATORIAL GUINEA
+										</option>
+										<option value="ER">ERITREA
+										</option>
+										<option value="EE">ESTONIA
+										</option>
+										<option value="ET">ETHIOPIA
+										</option>
+										<option value="FO">FAERO ISLANDS
+										</option>
+										<option value="FK">FALKLAND ISLANDS
+										</option>
+										<option value="FJ">FIJI
+										</option>
+										<option value="FI">FINLAND
+										</option>
+										<option value="FR">FRANCE
+										</option>
+										<option value="PF">FRENCH POLYNESIA/TAHITI
+										</option>
+										<option value="GA">GABON REPUBLIC
+										</option>
+										<option value="GM">GAMBIA
+										</option>
+										<option value="GE">GEORGIA
+										</option>
+										<option value="DE">GERMANY
+										</option>
+										<option value="GH">GHANA
+										</option>
+										<option value="GI">GIBRALTAR
+										</option>
+										<option value="GR">GREECE
+										</option>
+										<option value="GL">GREENLAND
+										</option>
+										<option value="GD">GRENADA
+										</option>
+										<option value="GU">GUAM
+										</option>
+										<option value="GT">GUATEMALA
+										</option>
+										<option value="GW">GUINEA BISSAU
+										</option>
+										<option value="GN">GUINEA REPUBLIC OF
+										</option>
+										<option value="GY">GUYANA
+										</option>
+										<option value="HT">HAITI
+										</option>
+										<option value="HN">HONDURAS
+										</option>
+										<option value="HK">HONG KONG
+										</option>
+										<option value="HU">HUNGARY
+										</option>
+										<option value="IS">ICELAND
+										</option>
+										<option value="IN">INDIA
+										</option>
+										<option value="ID">INDONESIA
+										</option>
+										<option value="IR">IRAN
+										</option>
+										<option value="IQ">IRAQ
+										</option>
+										<option value="IE">IRELAND
+										</option>
+										<option value="IL">ISRAEL
+										</option>
+										<option value="IT">ITALY
+										</option>
+										<option value="CI">IVORY COAST/COTE D'IVOIRE
+										</option>
+										<option value="JM">JAMAICA
+										</option>
+										<option value="JP">JAPAN
+										</option>
+										<option value="JO">JORDAN
+										</option>
+										<option value="KZ">KAZAKHSTAN
+										</option>
+										<option value="KE">KENYA
+										</option>
+										<option value="KI">KIRIBATI
+										</option>
+										<option value="KR">KOREA, REPUBLIC OF
+										</option>
+										<option value="KW">KUWAIT
+										</option>
+										<option value="KG">KYRGYZSTAN
+										</option>
+										<option value="LV">LATVIA
+										</option>
+										<option value="LB">LEBANON
+										</option>
+										<option value="LS">LESOTHO
+										</option>
+										<option value="LR">LIBERIA
+										</option>
+										<option value="LI">LIECHTENSTEIN
+										</option>
+										<option value="LT">LITHUANIA
+										</option>
+										<option value="LU">LUXEMBOURG
+										</option>
+										<option value="MO">MACAU
+										</option>
+										<option value="MK">MACEDONIA
+										</option>
+										<option value="MG">MADAGASCAR
+										</option>
+										<option value="MY">MALAYSIA
+										</option>
+										<option value="MV">MALDIVES
+										</option>
+										<option value="ML">MALI
+										</option>
+										<option value="MT">MALTA
+										</option>
+										<option value="MP">MARIANAS ISLANDS
+										</option>
+										<option value="MH">MARSHALL ISLANDS
+										</option>
+										<option value="MR">MAURITANIA
+										</option>
+										<option value="MU">MAURITIUS
+										</option>
+										<option value="MX">MEXICO
+										</option>
+										<option value="MD">MOLDOVA
+										</option>
+										<option value="MC">MONACO
+										</option>
+										<option value="MS">MONTSERRAT
+										</option>
+										<option value="MA">MOROCCO
+										</option>
+										<option value="MZ">MOZAMBIQUE
+										</option>
+										<option value="NA">NAMIBIA
+										</option>
+										<option value="NR">NAURU
+										</option>
+										<option value="NP">NEPAL
+										</option>
+										<option value="NL">NETHERLANDS
+										</option>
+										<option value="AN">NETHERLANDS ANTILLES
+										</option>
+										<option value="NZ">NEW ZEALAND
+										</option>
+										<option value="NI">NICARAGUA
+										</option>
+										<option value="NE">NIGER
+										</option>
+										<option value="NG">NIGERIA
+										</option>
+										<option value="NF">NORFOLK ISLAND
+										</option>
+										<option value="NO">NORWAY
+										</option>
+										<option value="OM">OMAN
+										</option>
+										<option value="PK">PAKISTAN
+										</option>
+										<option value="PA">PANAMA
+										</option>
+										<option value="PG">PAPUA NEW GUINEA
+										</option>
+										<option value="PY">PARAGUAY
+										</option>
+										<option value="PE">PERU
+										</option>
+										<option value="PH">PHILIPPINES
+										</option>
+										<option value="PL">POLAND
+										</option>
+										<option value="PT">PORTUGAL
+										</option>
+										<option value="QA">QATAR
+										</option>
+										<option value="RO">ROMANIA
+										</option>
+										<option value="RU">RUSSIAN FEDERATION
+										</option>
+										<option value="RW">RWANDA
+										</option>
+										<option value="SH">SAINT HELENA
+										</option>
+										<option value="KN">SAINT KITTS - NEVIS
+										</option>
+										<option value="LC">SAINT LUCIA
+										</option>
+										<option value="VC">SAINT VINCENT
+										</option>
+										<option value="SM">SAN MARINO
+										</option>
+										<option value="ST">SAO TOME - PRINCIPE
+										</option>
+										<option value="SA">SAUDI ARABIA
+										</option>
+										<option value="SN">SENEGAL
+										</option>
+										<option value="SC">SEYCHELLES
+										</option>
+										<option value="SL">SIERRA LEONE
+										</option>
+										<option value="SG">SINGAPORE
+										</option>
+										<option value="SK">SLOVAKIA
+										</option>
+										<option value="SI">SLOVENIA
+										</option>
+										<option value="SB">SOLOMON ISLANDS
+										</option>
+										<option value="SO">SOMALIA
+										</option>
+										<option value="ZA">SOUTH AFRICA
+										</option>
+										<option value="GS">SOUTH GEORGIA
+										</option>
+										<option value="ES">SPAIN
+										</option>
+										<option value="LK">SRI LANKA
+										</option>
+										<option value="SD">SUDAN
+										</option>
+										<option value="SR">SURINAME
+										</option>
+										<option value="SZ">SWAZILAND
+										</option>
+										<option value="SE">SWEDEN
+										</option>
+										<option value="CH">SWITZERLAND
+										</option>
+										<option value="SY">SYRIA
+										</option>
+										<option value="TW">TAIWAN (REPUBLIC OF CHINA)
+										</option>
+										<option value="TJ">TAJHIKSTAN
+										</option>
+										<option value="TZ">TANZANIA
+										</option>
+										<option value="TH">THAILAND
+										</option>
+										<option value="TG">TOGO
+										</option>
+										<option value="TK">TOKELAU ISLANDS
+										</option>
+										<option value="TO">TONGA
+										</option>
+										<option value="TT">TRINIDAD AND TOBAGO
+										</option>
+										<option value="TN">TUNISIA
+										</option>
+										<option value="TR">TURKEY
+										</option>
+										<option value="TM">TURKMENISTAN
+										</option>
+										<option value="TC">TURKS AND CAICOS
+										</option>
+										<option value="TV">TUVALU
+										</option>
+										<option value="UG">UGANDA
+										</option>
+										<option value="UA">UKRAINE
+										</option>
+										<option value="AE">UNITED ARAB EMIRATES
+										</option>
+										<option value="GB">UNITED KINGDOM
+										</option>
+										<option value="UY">URUGUAY
+										</option>
+										<option value="UZ">UZBEKISTAN
+										</option>
+										<option value="VU">VANUATU
+										</option>
+										<option value="VE">VENEZUELA
+										</option>
+										<option value="VN">VIETNAM
+										</option>
+										<option value="WS">WESTERN SAMOA
+										</option>
+										<option value="YE">YEMEN
+										</option>
+										<option value="ZR">ZAIRE
+										</option>
+										<option value="ZM">ZAMBIA
+										</option>
+									  </select>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="row">
+						<div class="grid-layout-col">
+						  <div class="layout-col col-sm-12 col-xs-12">
+							<div id="formElement8" class="elq-field-style form-element-layout row">
+							  <div class="col-sm-12 col-xs-12">
+								<div class="row">
+								  <div class="col-xs-12">
+									<div>
+									  <div class="single-checkbox-row row">
+										<input type="checkbox" name="singleCheckbox" id="fe1868">
+										<label class="checkbox-aligned elq-item-label" for="fe1868">I'd like to subscribe to receive Mack product news, updates and offers
+										</label>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <div class="row">
+						<div class="grid-layout-col">
+						  <div class="layout-col col-sm-12 col-xs-12">
+							<div id="formElement9" class="elq-field-style form-element-layout row">
+							  <div class="col-sm-12 col-xs-12">
+								<div class="row">
+								  <div class="col-xs-12">
+									<div style="text-align:center;">
+									  <input type="Submit" class="submit-button-style " value="Send to Dealer" id="fe1871">
+									</div>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <input type="hidden" name="hiddenField" id="fe1869" value="Request a Quote - Mackonomics">
+					  <input type="hidden" name="utmsource" id="fe2481" value="~~eloqua..type--emailfield..syntax--UTM_Source1~~">
+					  <input type="hidden" name="utmmedium" id="fe2482" value="~~eloqua..type--emailfield..syntax--UTM_Medium1~~">
+					  <input type="hidden" name="utmcontent" id="fe2483" value="~~eloqua..type--emailfield..syntax--UTM_Content1~~">
+					  <input type="hidden" name="utmcampaign" id="fe2484" value="~~eloqua..type--emailfield..syntax--UTM_Campaign1~~">
+					</div>
+				  </form>
+
+				  <script type="text/javascript" src="https://img03.en25.com/i/livevalidation_standalone.compressed.js">
+				  </script>
+				  <script>function handleFormSubmit(ele) {
+					  var submitButton = ele.querySelector('input[type=submit]');
+					  var spinner = document.createElement('span');
+					  spinner.setAttribute('class', 'loader');
+					  submitButton.setAttribute('disabled', true);
+					  submitButton.style.cursor = 'wait';
+					  submitButton.parentNode.appendChild(spinner);
+					  return true;
+					}
+					function resetSubmitButton(e){
+					  var submitButtons = e.target.form.getElementsByClassName('submit-button');
+					  for(var i=0;i<submitButtons.length;i++){
+						submitButtons[i].disabled = false;
+					  }
+					}
+					function addChangeHandler(elements){
+					  for(var i=0; i<elements.length; i++){
+						elements[i].addEventListener('change', resetSubmitButton);
+					  }
+					}
+					var form = document.getElementById('form157');
+					addChangeHandler(form.getElementsByTagName('input'));
+					addChangeHandler(form.getElementsByTagName('select'));
+					addChangeHandler(form.getElementsByTagName('textarea'));
+					var nodes = document.querySelectorAll('#form157 input[data-subscription]');
+					if (nodes) {
+					  for (var i = 0, len = nodes.length; i < len; i++) {
+						var status = nodes[i].dataset ? nodes[i].dataset.subscription : nodes[i].getAttribute('data-subscription');
+						if(status ==='true') {
+						  nodes[i].checked = true;
+						}
+					  }
+					};
+					var nodes = document.querySelectorAll('#form157 select[data-value]');
+					if (nodes) {
+					  for (var i = 0; i < nodes.length; i++) {
+						var node = nodes[i];
+						var selectedValue = node.dataset ? node.dataset.value : node.getAttribute('data-value');
+						if (selectedValue) {
+						  for (var j = 0; j < node.options.length; j++) {
+							if(node.options[j].value === selectedValue) {
+							  node.options[j].selected = 'selected';
+							  break;
+							}
+						  }
+						}
+					  }
+					}
+					this.getParentElement = function(list) {
+					  return list[list.length-1].parentElement};
+					var dom0 = document.querySelector('#form157 #fe1858');
+					var fe1858 = new LiveValidation(dom0, {
+					  validMessage: "", onlyOnBlur: false, wait: 300}
+												   );
+					fe1858.add(Validate.Presence, {
+					  failureMessage:"This field is required"}
+							  );
+					fe1858.add(Validate.Format, {
+					  pattern: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, failureMessage: "A valid email address is required"}
+							  );
+					var dom1 = document.querySelector('#form157 #fe1859');
+					var fe1859 = new LiveValidation(dom1, {
+					  validMessage: "", onlyOnBlur: false, wait: 300}
+												   );
+					fe1859.add(Validate.Presence, {
+					  failureMessage:"This field is required"}
+							  );
+					fe1859.add(Validate.Length, {
+					  tooShortMessage:"Invalid length for field value", tooLongMessage: "Invalid length for field value",  minimum: 0, maximum: 35}
+							  );
+					fe1859.add(Validate.Custom, {
+					  against: function(value) {
+						return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
+					  }
+					  , failureMessage: "Value must not contain any URL's"}
+							  );
+					fe1859.add(Validate.Custom, {
+					  against: function(value) {
+						return !value.match(/(<([^>]+)>)/ig);
+					  }
+					  , failureMessage: "Value must not contain any HTML"}
+							  );
+					var dom2 = document.querySelector('#form157 #fe1860');
+					var fe1860 = new LiveValidation(dom2, {
+					  validMessage: "", onlyOnBlur: false, wait: 300}
+												   );
+					fe1860.add(Validate.Presence, {
+					  failureMessage:"This field is required"}
+							  );
+					fe1860.add(Validate.Length, {
+					  tooShortMessage:"Invalid length for field value", tooLongMessage: "Invalid length for field value",  minimum: 0, maximum: 35}
+							  );
+					fe1860.add(Validate.Custom, {
+					  against: function(value) {
+						return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
+					  }
+					  , failureMessage: "Value must not contain any URL's"}
+							  );
+					fe1860.add(Validate.Custom, {
+					  against: function(value) {
+						return !value.match(/(<([^>]+)>)/ig);
+					  }
+					  , failureMessage: "Value must not contain any HTML"}
+							  );
+					var dom3 = document.querySelector('#form157 #fe1861');
+					var fe1861 = new LiveValidation(dom3, {
+					  validMessage: "", onlyOnBlur: false, wait: 300}
+												   );
+					fe1861.add(Validate.Presence, {
+					  failureMessage:"This field is required"}
+							  );
+					fe1861.add(Validate.Custom, {
+					  against: function(value) {
+						return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
+					  }
+					  , failureMessage: "Value must not contain any URL's"}
+							  );
+					fe1861.add(Validate.Custom, {
+					  against: function(value) {
+						return !value.match(/(<([^>]+)>)/ig);
+					  }
+					  , failureMessage: "Value must not contain any HTML"}
+							  );
+					var dom4 = document.querySelector('#form157 #fe1873');
+					var fe1873 = new LiveValidation(dom4, {
+					  validMessage: "", onlyOnBlur: false, wait: 300}
+												   );
+					fe1873.add(Validate.Presence, {
+					  failureMessage:"This field is required"}
+							  );
+					var dom5 = document.querySelector('#form157 #fe1878');
+					var fe1878 = new LiveValidation(dom5, {
+					  validMessage: "", onlyOnBlur: false, wait: 300}
+												   );
+					fe1878.add(Validate.Presence, {
+					  failureMessage:"This field is required"}
+							  );
+					var dom6 = document.querySelector('#form157 #fe1866');
+					var fe1866 = new LiveValidation(dom6, {
+					  validMessage: "", onlyOnBlur: false, wait: 300}
+												   );
+					fe1866.add(Validate.Length, {
+					  tooShortMessage:"Invalid length for field value", tooLongMessage: "Invalid length for field value",  minimum: 5, maximum: 12}
+							  );
+					fe1866.add(Validate.Presence, {
+					  failureMessage:"This field is required"}
+							  );
+					fe1866.add(Validate.Custom, {
+					  against: function(value) {
+						return !value.match(/(<([^>]+)>)/ig);
+					  }
+					  , failureMessage: "Value must not contain any HTML"}
+							  );
+					fe1866.add(Validate.Custom, {
+					  against: function(value) {
+						return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
+					  }
+					  , failureMessage: "Value must not contain any URL's"}
+							  );
+					var dom7 = document.querySelector('#form157 #fe1867');
+					var fe1867 = new LiveValidation(dom7, {
+					  validMessage: "", onlyOnBlur: false, wait: 300}
+												   );
+					fe1867.add(Validate.Presence, {
+					  failureMessage:"This field is required"}
+							  );
+					var dom8 = document.querySelector('#form157 #fe1868');
+					var fe1868 = new LiveValidation(dom8, {
+					  validMessage: "", onlyOnBlur: false, wait: 300}
+												   );
+				  </script>
+				  
+				  
+				<!-- End Eloqua Form Code -->
+
+
+			</div>
+		</div>
+	</div> <!-- /sidebar -->
+
+	<div class="overlay"></div>
+
+</body>
+
+</html>
