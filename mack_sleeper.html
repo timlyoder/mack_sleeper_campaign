@@ -297,10 +297,13 @@
 		}
 
 		h1 {
-			font-size: 48px;
+			font-size: 64px;
 			color: #fff;
-			font-weight: 500;
-			line-height: 45px;
+			font-weight: 700;
+			line-height: 70px;
+			width: 40%;
+			margin-left: 8%;
+			margin-top: 100px;
 		}
 
 		h2 {
@@ -351,6 +354,19 @@
 			padding-left: 7%;
 			display: inline-block;
 		}
+
+		.h2-gray {
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			font-size: 36px;
+			line-height: 43px;
+			font-weight: 400;
+			padding-top: 68px;
+			padding-left: 8%;
+			padding-right: 7%;
+			padding-bottom: 65px;
+			color: #a5a5a5;
+		}
+
 
 		.gold_button {
 			color: #B49867;
@@ -446,7 +462,7 @@
 			padding-left: 8%;
 		}
 
-		.section_title::after {
+		/* .section_title::after {
 			border-bottom: 1px solid #727272 ;
 			display: flex;
 			flex: auto;
@@ -454,7 +470,7 @@
 			margin-left: 3%;
 			margin-right: 3%;
 			margin-bottom: 5px;
-		}
+		} */
 
 		#mackonomics h2 {
 			color: #fff;
@@ -539,6 +555,7 @@
 			background-color: #B49867;
 			width: 311px;
 			float: left;
+			
 		}
 
 		#card_1 h2 {
@@ -566,14 +583,13 @@
 			overflow-x: scroll;
 			overflow-y: hidden;
 			margin-top: 32px;
+			border-radius: 6px;
 		}
 
 		#cards {
 			width: 1760px;
 			display: block;
-			background-color: #C6C6C6;
-			background-image: url(blue_gradient.png);
-			background-size: contain;
+			background-color: #fff;
 		}
 
 		.card_numbers {
@@ -588,7 +604,7 @@
 			font-size: 20px;
 			line-height: 24px;
 			padding-left: 35px;
-			padding-top: 35px;
+			margin-top: 205px;
 		}
 
 		#card_p {
@@ -718,10 +734,12 @@
 		}
 
 		.twitter_copy {
-			font-size: 10px;
+			font-size: 12px;
 			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
-			line-height: 18px;
+			line-height: 16px;
 			color: #fff;
+			font-weight: 400;
+			letter-spacing: -3%;
 		}
 
 		.engine_table_copy {
@@ -958,12 +976,35 @@
 			display: none;
 		}
 
-		#energy_recovery, #predictive_cruise {
-			border-right: 1px solid #C6C6C6;
+		#energy_recovery {
+			
+			background-image: url("gas_gauge.png");
+			background-size: contain;
 		}
 
+		#predictive_cruise {
+
+			background-image: url("engine.png");
+			background-size: contain;
+			
+		}
+
+		#m_drive {
+			background-image: url("location_map.png");
+			background-size: contain;
+		}
+
+
 		#card_2 {
-			border-right: 1px solid #C6C6C6;
+			
+			background-image: url("aerodynamic_truck.png");
+			background-size: contain;
+		}
+
+		.three-column-header {
+			font-size: 16px;
+			color: #fff;
+			font-weight: 400;
 		}
 
 
@@ -971,6 +1012,7 @@
 
 			#hero {
 				height: 535px;
+				border-radius: 0 0 6px 6px;
 			} 
 
 			#hero h3 {
@@ -1029,7 +1071,9 @@
 			}
 
 			#mackonomics h2 {
-				width: 60%;
+				width: 35%;
+				padding-top: 20px;
+				padding-bottom: 120px;
 			}
 
 			#video, iframe {
@@ -1037,8 +1081,12 @@
 			}
 
 			#mackonomics {
-				border-top-left-radius: 6px;
-				border-top-right-radius: 6px;
+				border-radius: 6px;
+			
+				padding-bottom: 100px;
+				background-image: url("mack_team_bg.png");
+				background-size: cover;
+				background-position: center;
 			}
 
 			#mackonomics_p {
@@ -1051,20 +1099,28 @@
 			}
 
 			#tweets {
-				margin:0;
-				text-align: center;
+				margin-left:8%;
+				margin-right: auto;
+				text-align: left;
+				margin-top: 100px;
 			}
 
 			.tweet {
-				width: 31.5%;
+				width: 28.5%;
 				display: inline-block;
-				padding: 0 10px;
+				padding: 0;
 				vertical-align: top;
 				text-align: left;
+				margin-right: 32px;
 			}
 
-			#tweet_2, #tweet_3 {
+			#tweet_2 {
 				margin-top: 0;
+			}
+
+			#tweet_3 {
+				margin-top: 0;
+				margin-right: 0;
 			}
 
 			.twitter_copy {
@@ -1264,15 +1320,11 @@
 
 		<div id="introduction">
 
-			<div id="introduction_header" class="heavy">
-
-				<h3>Introducing the Next-Generation MP8HE</h3>
 			
-			</div>
 
 			<div id="drive_header" class="heavy">
 
-				<h2>With Mack Anthem  Sleepers, partnership means helping you get the most out of every mile. </h2>
+				<h2 class="h2-gray">With Mack Anthem  Sleepers, partnership means helping you get the most out of every mile. </h2>
 
 			</div>
 
@@ -1285,56 +1337,50 @@
 
 				<h2>When you buy the truck, you get the team. </h2>
 
-				<img id="video" src="Video.png" alt="Video - Watch two Mack drivers race to see who can get the most out of their mileage." />
+				<!-- <img id="video" src="Video.png" alt="Video - Watch two Mack drivers race to see who can get the most out of their mileage." />
 
-				<iframe src="https://www.youtube.com/embed/V3psHPq8AN0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+				<iframe src="https://www.youtube.com/embed/V3psHPq8AN0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+<!-- 
 				<p class="body_copy" id="mackonomics_p">
 					We sent owner/operator Jamie "Hell Bent" Hagen on the road to help us highlight 
 					the Mack Anthem HE+ Package. Connect with him to see the results for yourself or follow #Mackonomics on your social channels.
 				</p>
 
-				<a href="https://twitter.com/hellbenthagen" class="gold_button button" id="jamie_button">Follow Jamie</a>
+				<a href="https://twitter.com/hellbenthagen" class="gold_button button" id="jamie_button">Follow Jamie</a> -->
 
 				<div id="tweets">
 
 					<div id="tweet_1" class="tweet">
 
-						<img src="mackonomics_tweet.png" alt="" class="tweet_image">
+						<img src="lady_driver.png" alt="" class="tweet_image">
 
-						<img src="twitter_icon.png" alt="" class="tweet_icon">
-
-						<span class="twitter_handle">@hellbenthagen</span>
+						<h5 class="three-column-header">Committed to the long haul</h5>
 
 						<p class="twitter_copy">
-							Just thought I'd share a little progress report on the @MackEndeavor for the last couple days. With 60,000 miles on it now, it has a lifetime average of 9 mpg. #Mackonomics
+							When you join the Mack family, you get a team dedicated to helping you solve every challenge on the road ahead.  
 						</p>
 
 					</div>
 
 					<div id="tweet_2" class="tweet">
 
-						<img src="mackonomics_tweet_2.png" alt="" class="tweet_image">
+						<img src="truck_on_bridge.png" alt="" class="tweet_image">
 
-						<img src="twitter_icon.png" alt="" class="tweet_icon">
-
-						<span class="twitter_handle">@hellbenthagen</span>
+						<h5 class="three-column-header">Committed to the long haul</h5>
 
 						<p class="twitter_copy">
-							While I was off getting married I had my first oil change on the "Endeavour" and managed to have my axle hubs preloaded as well. #Mackonomics </p>
+							Mack Connect delivers unprecedented connectivity and data-driven telematics to help you outperform the competition.  </p>
 
 					</div>
 
 					<div id="tweet_3" class="tweet">
 
-						<img src="mackonomics_tweet_3.png" alt="" class="tweet_image">
+						<img src="truck_on_bridge.png" alt="" class="tweet_image">
 
-						<img src="twitter_icon.png" alt="" class="tweet_icon">
-
-						<span class="twitter_handle">@hellbenthagen</span>
+						<h5 class="three-column-header">Committed to the long haul</h5>
 
 						<p class="twitter_copy">
-							High expectations lead to disappointment they say. I want that 10 mpg so bad that this is disappointing. Maybe I just need to smile and be happy its not bad. 😊 #Mackonomics
+							Stay protected with 24/7 monitoring and support with over 600 service locations in North America.
 						</p>
 					</div>
 
@@ -1342,48 +1388,21 @@
 				
 			</div>
 
-			<div id="engine_detail">
+		
 
-				<span class="section_title">ENGINE DETAIL</span>
+				
 
-				<img src="Engine.jpg" alt="Engine" id="engine_image" />
+				
 
-				<h2 id="engine_header">Built to get the most out of every mile.</h2>
-
-				<table id="engine_table">
-
-					<tr>
-
-						<td> <p class="engine_table_copy">New wave piston design delivers a higher compression ratio.</p></td>
-
-						<td><p class="engine_table_copy">Updated gear ratio and turbo compound improves acceleration.</p></td>
-
-					</tr>
-
-					<tr>
-						<td><p class="engine_table_copy">More intelligent EGR valve for improved efficiency.</p></td>
-
-						<td><p class="engine_table_copy">Smaller oil filter housing with two oil filters for less consumption</p></td>
-					</tr>
-
-					<tr>
-
-						<td><p class="engine_table_copy">Lower viscosity oil improves fuel economy.</p></td>
-
-						<td><p class="engine_table_copy">Lighter engine design</p></td>
-					</tr>
-
-				</table>
-
-				<span class="section_title">HE+ PACKAGE</span>
+				
 
 				<div id="carousel">
 
 					<div id="cards">
 
 						<div id="card_1">
-							
-							<h2>Drop your fuel costs by 13% with the Mack HE+ Package.*</h2>
+							<span class="section_title">HE+ PACKAGE</span>
+							<h2>5 Ways Mack Anthem adds up for your business.</h2>
 							
 							<img src="arrow_button.png" alt="" />
 
@@ -1393,7 +1412,7 @@
 
 							<p class="card_numbers">01</p>
 
-							<img src="Advanced_Aerodynamics.png" alt="">
+							
 
 							<p class="card_header">Advanced <br> Aerodynamics</p>
 
@@ -1407,8 +1426,6 @@
 
 							<p class="card_numbers">02</p>
 
-							<img src="Energy_Recovery_Technology.png" alt="">
-
 							<p class="card_header">Energy Recovery Technology (ERT)</p>
 
 							<p class="body_copy_black" id="card_p">ERT captures heat from the engine exhaust and converts it to torque, 
@@ -1421,8 +1438,6 @@
 
 							<p class="card_numbers">03</p>
 
-							<img src="Predictive_Cruise.png" alt="">
-
 							<p class="card_header">Mack Predictive Cruise</p>
 
 							<p class="body_copy_black" id="card_p">When cruise control is engaged,this intelligent navigation feature memorizes GPS data of up to 4,500 hills 
@@ -1434,8 +1449,6 @@
 						<div id="m_drive" class="card">
 
 							<p class="card_numbers">04</p>
-
-							<img src="mDrive.png" alt="">
 
 							<p class="card_header">mDRIVE &trade; 12-Speed Overdrive Transmission </p>
 
@@ -1451,7 +1464,7 @@
 
 				<p id="he_disclaimer">*Compared to similar Mack Anthem<br> without the HE engine and HE+ features.</p>
 
-			</div>
+			
 
 			
 			<div id="calculate">
