@@ -454,7 +454,7 @@
 
 		#mackonomics {
 			background-color: #1c1c1c;
-			padding-top: 48px;
+			padding-top: 0px;
 			padding-bottom: 48px;
 		}
 
@@ -462,7 +462,7 @@
 			padding-left: 8%;
 		}
 
-		/* .section_title::after {
+		 .section_title::after {
 			border-bottom: 1px solid #727272 ;
 			display: flex;
 			flex: auto;
@@ -470,7 +470,7 @@
 			margin-left: 3%;
 			margin-right: 3%;
 			margin-bottom: 5px;
-		} */
+		} 
 
 		#mackonomics h2 {
 			color: #fff;
@@ -523,7 +523,7 @@
 			padding-top: 15px;
 		}
 
-		#tweets {
+		.three-column {
 			margin: 0 20%;
 		}
 
@@ -584,6 +584,7 @@
 			overflow-y: hidden;
 			margin-top: 32px;
 			border-radius: 6px;
+			margin-top: 70px;
 		}
 
 		#cards {
@@ -733,7 +734,7 @@
 			padding-left: 120px;
 		}
 
-		.twitter_copy {
+		.column_copy {
 			font-size: 12px;
 			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
 			line-height: 16px;
@@ -749,7 +750,7 @@
 			color: #000000;
 		}
 
-		#tweet_2, #tweet_3 {
+		.column_2, .column_3 {
 			margin-top: 40px;
 		}
 
@@ -1085,8 +1086,10 @@
 			
 				padding-bottom: 100px;
 				background-image: url("mack_team_bg.png");
-				background-size: cover;
+				background-size: contain;
 				background-position: center;
+				background-repeat: no-repeat;
+				margin-bottom: 35px;
 			}
 
 			#mackonomics_p {
@@ -1094,18 +1097,31 @@
 				display: inline-block;
 			}
 
+			#protect-business {
+				border-radius: 6px;
+			
+				padding-bottom: 100px;
+				background-color: #1c1c1c;
+				margin-bottom: 35px;
+			}
+
+			#protect-business h2 {
+				padding-bottom: 0;
+				width: 45%;
+			}
+
 			#calculate_cta {
 				padding-top: 7%;
 			}
 
-			#tweets {
+			.three-column {
 				margin-left:8%;
 				margin-right: auto;
 				text-align: left;
 				margin-top: 100px;
 			}
 
-			.tweet {
+			.column {
 				width: 28.5%;
 				display: inline-block;
 				padding: 0;
@@ -1114,17 +1130,53 @@
 				margin-right: 32px;
 			}
 
-			#tweet_2 {
+			.column_2 {
 				margin-top: 0;
 			}
 
-			#tweet_3 {
+			.column_3 {
 				margin-top: 0;
 				margin-right: 0;
 			}
 
-			.twitter_copy {
+			.column_copy {
 				width: 80%;
+			}
+
+			#business-columns {
+				margin-top: 30px;
+			}
+
+			.get-started-container {
+				background-image: url("Background_Image_hood.png");
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+
+			.get-started-container h2 {
+				padding-bottom: 30px;
+			}
+
+			.get-started-container p {
+				color: #fff;
+				padding-left: 8%;
+				width: 30%;
+			}
+
+			.talk-button {
+				margin-left: 8%;
+				margin-top: 30px;
+				margin-bottom: 80px;
+				background-color: #B70000;
+				border: none;
+				color: #fff;
+				padding: 20px 60px;
+			}
+
+			#download-brochure {
+				text-decoration: underline;
+				margin-bottom: 50px;
 			}
 
 			#engine_detail {
@@ -1348,38 +1400,38 @@
 
 				<a href="https://twitter.com/hellbenthagen" class="gold_button button" id="jamie_button">Follow Jamie</a> -->
 
-				<div id="tweets">
+				<div class="three-column">
 
-					<div id="tweet_1" class="tweet">
+					<div class="column_1 column" >
 
-						<img src="lady_driver.png" alt="" class="tweet_image">
+						<img src="lady_driver.png" alt="" class="column_image">
 
 						<h5 class="three-column-header">Committed to the long haul</h5>
 
-						<p class="twitter_copy">
+						<p class="column_copy">
 							When you join the Mack family, you get a team dedicated to helping you solve every challenge on the road ahead.  
 						</p>
 
 					</div>
 
-					<div id="tweet_2" class="tweet">
+					<div class="column_2 column">
 
-						<img src="truck_on_bridge.png" alt="" class="tweet_image">
+						<img src="truck_on_bridge.png" alt="" class="column_image">
 
 						<h5 class="three-column-header">Committed to the long haul</h5>
 
-						<p class="twitter_copy">
+						<p class="column_copy">
 							Mack Connect delivers unprecedented connectivity and data-driven telematics to help you outperform the competition.  </p>
 
 					</div>
 
-					<div id="tweet_3" class="tweet">
+					<div class="column_3 column">
 
-						<img src="truck_on_bridge.png" alt="" class="tweet_image">
+						<img src="truck_on_bridge.png" alt="" class="column_image">
 
 						<h5 class="three-column-header">Committed to the long haul</h5>
 
-						<p class="twitter_copy">
+						<p class="column_copy">
 							Stay protected with 24/7 monitoring and support with over 600 service locations in North America.
 						</p>
 					</div>
@@ -1391,7 +1443,7 @@
 		
 
 				
-
+			<span class="section_title">02/ TOTAL COST OF OWNERSHIP</span>
 				
 
 				
@@ -1464,12 +1516,20 @@
 
 				<p id="he_disclaimer">*Compared to similar Mack Anthem<br> without the HE engine and HE+ features.</p>
 
+				<div class="get-started-container">
 
-				<div id="mackonomics">
+					<h2>Let's Get Started</h2>
+					<p>Connect with a Mack dealer for a breakdown of your savings.</p>
+					<button class="talk-button">Let's talk</button>
+					<p id="download-brochure">Download Anthem Brochure</p>
+				</div>
 
-					<span class="section_title" id="mackonomics_title">01 / SERVICE AND SUPPORT</span>
+
+				<div id="protect-business">
+
+					<span class="section_title" id="mackonomics_title">03 / WARRANTY AND PROTECTION</span>
 	
-					<h2>When you buy the truck, you get the team. </h2>
+					<h2>We make it our business to protect yours. </h2>
 	
 					<!-- <img id="video" src="Video.png" alt="Video - Watch two Mack drivers race to see who can get the most out of their mileage." />
 	
@@ -1482,39 +1542,39 @@
 	
 					<a href="https://twitter.com/hellbenthagen" class="gold_button button" id="jamie_button">Follow Jamie</a> -->
 	
-					<div id="tweets">
+					<div id="business-columns" class="three-column">
 	
-						<div id="tweet_1" class="tweet">
+						<div class="column_1 column">
 	
-							<img src="lady_driver.png" alt="" class="tweet_image">
+							<img src="lady_driver.png" alt="" class="column_image">
 	
-							<h5 class="three-column-header">Committed to the long haul</h5>
+							<h5 class="three-column-header">Warranty Coverage</h5>
 	
-							<p class="twitter_copy">
-								When you join the Mack family, you get a team dedicated to helping you solve every challenge on the road ahead.  
+							<p class="column_copy">
+								We do more than stand by our trucks. We stand by our word.   
 							</p>
 	
 						</div>
 	
-						<div id="tweet_2" class="tweet">
+						<div class="column_2 column">
 	
-							<img src="truck_on_bridge.png" alt="" class="tweet_image">
+							<img src="truck_on_bridge.png" alt="" class="column_image">
 	
-							<h5 class="three-column-header">Committed to the long haul</h5>
+							<h5 class="three-column-header">Premium Maintenance Plans</h5>
 	
-							<p class="twitter_copy">
-								Mack Connect delivers unprecedented connectivity and data-driven telematics to help you outperform the competition.  </p>
+							<p class="column_copy">
+								Lock in parts and labor costs for tomorrow’s service needs at today’s prices.  </p>
 	
 						</div>
 	
-						<div id="tweet_3" class="tweet">
+						<div class="column_3 column">
 	
-							<img src="truck_on_bridge.png" alt="" class="tweet_image">
+							<img src="truck_on_bridge.png" alt="" class="column_image">
 	
-							<h5 class="three-column-header">Committed to the long haul</h5>
+							<h5 class="three-column-header">Mack Uptime Center</h5>
 	
-							<p class="twitter_copy">
-								Stay protected with 24/7 monitoring and support with over 600 service locations in North America.
+							<p class="column_copy">
+								The Mack Uptime Center brings tailored analytics, service and uptime solutions to you.
 							</p>
 						</div>
 	
@@ -1522,43 +1582,10 @@
 					
 				</div>
 
-
-			<div id="request_demo">
-
-				<span class="section_title">TAKE THE NEXT STEP</span>
+				<span class="section_title">04/ REAL-WORLD RESULTS</span>
 
 
-				<div id="steering_wheel" class="cta">
-
-					<img src="steering_wheel.png" alt="">
-
-					<p class="next_step_header">Request a Demo</p>
-
-					<p class="next_step_copy">Talk to your local Mack <br> dealer about Mack Anthem.</p>
-
-				</div>
-
-				<div id="build" class="cta">
-
-					<img src="build_your_anthem.png" alt="">
-
-					<p class="next_step_header">Build your Anthem</p>
-
-					<p class="next_step_copy">Design your own Mack <br> Anthem with Truck Builder. </p>
-
-				</div>
-
-				<div id="specs" class="cta">
-
-					<img src="specs.png" alt="">
-
-					<p class="next_step_header">Build your Anthem</p>
-
-					<p class="next_step_copy">Design your own Mack <br> Anthem with Truck Builder. </p>
-
-				</div>
-
-			</div>
+			
 
 			<div id="footer">
 
