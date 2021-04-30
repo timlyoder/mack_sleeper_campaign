@@ -260,7 +260,7 @@
 			background-repeat: no-repeat;
 			background-size: cover;
 			background-position: center;
-			height: 250px;
+			/* height: 250px; */
 			width: 100%;
 		}
 
@@ -297,13 +297,13 @@
 		}
 
 		h1 {
-			font-size: 64px;
+			font-size: 36px;
 			color: #fff;
 			font-weight: 700;
-			line-height: 70px;
-			width: 40%;
+			line-height: 35px;
+			width: 50%;
 			margin-left: 8%;
-			margin-top: 100px;
+			margin-top: 50px;
 		}
 
 		h2 {
@@ -344,9 +344,9 @@
 		}
 
 		#drive_header {
-			padding-left: 7%;
+			
 			padding-top: 10%;
-			width: 85%;
+			width: 100%;
 		}
 
 		#calculate_cta {
@@ -413,16 +413,16 @@
 		}
 		
 		.body_copy {
-			font-size: 12px;
+			font-size: 16px;
 			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
-			line-height: 18px;
+			line-height: 21px;
 			color: #fff;
 		}
 
 		.body_copy_black {
-			font-size: 12px;
+			font-size: 16px;
 			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
-			line-height: 18px;
+			line-height: 21px;
 			color: #000000;
 		}
 
@@ -550,7 +550,7 @@
 			width: 100%;
 		}
 
-		#card_1 {
+		.card_1 {
 			height: 438px;
 			background-color: #B49867;
 			width: 311px;
@@ -558,12 +558,12 @@
 			
 		}
 
-		#card_1 h2 {
+		.card_1 h2 {
 			padding-left: 35px;
 			padding-right: 25px;
 		}
 
-		#card_1 img {
+		.card_1 img {
 			padding-left: 266px;
 			padding-top: 88px;
 		}
@@ -577,7 +577,7 @@
 			vertical-align: top;
 		}
 
-		#carousel {
+		.carousel {
 			display: inline-block;
 			width: 100%;
 			overflow-x: scroll;
@@ -587,8 +587,23 @@
 			margin-top: 70px;
 		}
 
-		#cards {
-			width: 1760px;
+		.video-carousel {
+			display: inline-block;
+			width: 100%;
+			overflow-x: scroll;
+			overflow-y: hidden;
+			margin-top: 32px;
+			margin-top: 70px;
+		}
+
+		.cards {
+			width: 2110px;
+			display: block;
+			background-color: #fff;
+		}
+
+		.cards-wide {
+			width: 1830px;
 			display: block;
 			background-color: #fff;
 		}
@@ -606,13 +621,26 @@
 			line-height: 24px;
 			padding-left: 35px;
 			margin-top: 205px;
+			width: 73%;
 		}
 
-		#card_p {
+		.card_header_gold {
+			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
+			font-size: 20px;
+			line-height: 24px;
+			padding-left: 35px;
+			margin-top: 205px;
+			width: 73%;
+			color: #B79D6F;
+		}
+
+		.card_p {
 			padding-left: 35px;
 			padding-right: 35px;
 			padding-top: 20px;
 		}
+
+	
 
 		#he_disclaimer {
 			font-family: "Helvetica Neue 55 Regular", "Helvetica", "Arial", sans-serif;
@@ -996,7 +1024,13 @@
 		}
 
 
-		#card_2 {
+		#driver_effort {
+			background-image: url("steering_wheel_tech.png");
+			background-size: contain;
+		}
+
+
+		.card_2 {
 			
 			background-image: url("aerodynamic_truck.png");
 			background-size: contain;
@@ -1008,13 +1042,44 @@
 			font-weight: 400;
 		}
 
+		.sections {
+				margin-left: 8%;
+				margin-top: 50px;
+				padding-bottom: 40px;
+		}
+
+		.sections p {
+				display: inline-block;
+				font-size: 16px;
+				line-height: 17px;
+				color: #fff;
+				width: 100px;
+				margin-right: 30px;
+			}
+
+			.sections span {
+				font-size: 12px;
+				line-height: 25px;
+
+			}
+
 
 		@media (min-width: 769px) {
 
 			#hero {
-				height: 535px;
+				/* height: 535px; */
 				border-radius: 0 0 6px 6px;
 			} 
+
+			h1 {
+			font-size: 64px;
+			color: #fff;
+			font-weight: 700;
+			line-height: 70px;
+			width: 40%;
+			margin-left: 8%;
+			margin-top: 100px;
+		}
 
 			#hero h3 {
 				display: block;
@@ -1024,7 +1089,7 @@
 			} 
 
 			#logo {
-				padding-left: 10%;
+				padding-left: 8%;
 				padding-top: 3.5%;
 			}
 
@@ -1046,6 +1111,33 @@
 
 			#calculate_hero_cta a:hover {
 				text-decoration: underline;
+
+			}
+
+			#drive_header {
+			padding-left: 7%;
+			padding-top: 10%;
+			width: 85%;
+		}
+
+			.sections {
+				margin-left: 8%;
+				margin-top: 50px;
+				padding-bottom: 40px;
+			}
+
+			.sections p {
+				display: inline-block;
+				font-size: 16px;
+				line-height: 17px;
+				color: #fff;
+				width: 100px;
+				margin-right: 30px;
+			}
+
+			.sections span {
+				font-size: 12px;
+				line-height: 25px;
 
 			}
 
@@ -1199,7 +1291,7 @@
 				display: inline-block;
 			}
 
-			#card_1 {
+			.card_1 {
 				width: 365px;
 			}
 
@@ -1208,7 +1300,7 @@
 				vertical-align: top;
 			}
 
-			#card_1 img {
+			.card_1 img {
 				padding-left: 320px;
 			}
 
@@ -1299,6 +1391,35 @@
 				padding-right: 20px;
 			}
 
+			#proof-performance {
+				background-color: #252525;
+			}
+
+			.card-wide {
+				width: 485px;
+				height: 438px;
+				background-repeat: no-repeat;
+				background-position-y: top;
+				display: inline-block;
+				vertical-align: top;
+				background-color: #101010;
+				text-align: center;
+			}
+
+			.card-wide img {
+				width: 80%;
+				display: inline-block;
+			}
+
+			
+
+			.wide_card_p {
+				text-align: left;
+				margin-left: 10%;
+				margin-top: 42px;
+
+			}
+
 			.sidebar {
 				width: 50vw;
 			}
@@ -1314,12 +1435,12 @@
 
 		}
 
-		@media (max-width: 768px) {
+		/* @media (max-width: 768px) {
 			
-			#cards {
+			.cards {
 				width: 1570px;
 			}
-		}
+		} */
 
 	</style>
 
@@ -1366,6 +1487,13 @@
 
 
 			<h1 class="heavy">Meet your new partner for the long haul.</h1>
+
+				<div class="sections">
+					<p><span>01</span><br>Service and Support</p>
+					<p><span>02</span><br>Total Cost of Ownership</p>
+					<p><span>03</span><br>Warranty and Protection</p>
+				</div>
+
 
 		</div>
 
@@ -1448,28 +1576,27 @@
 
 				
 
-				<div id="carousel">
+				<div class="carousel">
 
-					<div id="cards">
+					<div class="cards">
 
-						<div id="card_1">
-							<span class="section_title">HE+ PACKAGE</span>
+						<div class="card_1">
+							
 							<h2>5 Ways Mack Anthem adds up for your business.</h2>
 							
 							<img src="arrow_button.png" alt="" />
 
 						</div>
 
-						<div id="card_2" class="card">
+						<div class="card_2 card">
 
 							<p class="card_numbers">01</p>
 
 							
 
-							<p class="card_header">Advanced <br> Aerodynamics</p>
+							<p class="card_header">13.5% Increased<br>Fuel Savings</p>
 
-							<p class="body_copy_black" id="card_p">The aerodynamic flanges, adjustable trim tabs and 
-								sleek hood design combine to help the Anthem cut through wind to reduce drag. 
+							<p class="body_copy_black card_p">Aerodynamic performance that cuts through wind. And the competition. 
 							</p>
 
 						</div>
@@ -1478,10 +1605,9 @@
 
 							<p class="card_numbers">02</p>
 
-							<p class="card_header">Energy Recovery Technology (ERT)</p>
+							<p class="card_header">Impressive MPG Performance</p>
 
-							<p class="body_copy_black" id="card_p">ERT captures heat from the engine exhaust and converts it to torque, 
-								burning up to 9.5% less fuel in highway operations.*
+							<p class="body_copy_black card_p">The MP®8 HE engine makes Mack Anthem the most fuel efficient truck we’ve ever built. 
 							</p>
 
 						</div>
@@ -1490,10 +1616,9 @@
 
 							<p class="card_numbers">03</p>
 
-							<p class="card_header">Mack Predictive Cruise</p>
+							<p class="card_header">600K-Mile HE Performance Guarantee</p>
 
-							<p class="body_copy_black" id="card_p">When cruise control is engaged,this intelligent navigation feature memorizes GPS data of up to 4,500 hills 
-								to engage the ideal shift strategy for repeated routes.
+							<p class="body_copy_black card_p">We do more than stand by the performance of our Mack MP®8 HE engine. We guarantee it. 
 							</p>
 
 						</div>
@@ -1502,10 +1627,20 @@
 
 							<p class="card_numbers">04</p>
 
-							<p class="card_header">mDRIVE &trade; 12-Speed Overdrive Transmission </p>
+							<p class="card_header_gold">600+ Service Locations in North America </p>
 
-							<p class="body_copy_black" id="card_p">When cruise control is engaged,this intelligent navigation feature memorizes GPS data of up to 4,500 hills 
-								to engage the ideal shift strategy for repeated routes.
+							<p class="body_copy card_p">No matter where the job takes you, help is always nearby. 
+							</p>
+
+						</div>
+
+						<div id="driver_effort" class="card">
+
+							<p class="card_numbers">04</p>
+
+							<p class="card_header">85% Less Driver Effort </p>
+
+							<p class="body_copy_black card_p">Introducing the latest breakthrough in driver-assist technology: Mack Command Steer. 
 							</p>
 
 						</div>
@@ -1583,6 +1718,65 @@
 				</div>
 
 				<span class="section_title">04/ REAL-WORLD RESULTS</span>
+
+				<div class="video-carousel">
+
+					<div class="cards-wide">
+
+						<div class="card_1" id="proof-performance">
+							
+							<h2>The proof is in the performance.</h2>
+							<p class="body_copy card_p">Don’t take our word for it. Hear what real customers are saying about Mack Anthem. 
+							</p>
+							
+							<img src="arrow_button.png" alt="" />
+
+						</div>
+
+						<div id="full-tilt" class="card-wide">
+
+							<p class="card_numbers">01</p>
+
+							<img src="full_tilt_Image.png" alt="">
+
+							
+
+							<p class="body_copy wide_card_p ">"We gotta have the Anthem!" 
+							</p>
+
+						</div>
+
+					
+
+						<div class="card-wide">
+
+							<p class="card_numbers">01</p>
+
+							<img src="transland_Image.png" alt="">
+
+							
+
+							<p class="body_copy wide_card_p ">"We gotta have the Anthem!" 
+							</p>
+
+						</div>
+
+						<div class="card-wide">
+
+							<p class="card_numbers">01</p>
+
+							<img src="vital_speeds_Image.png" alt="">
+
+							
+
+							<p class="body_copy wide_card_p ">"We gotta have the Anthem!" 
+							</p>
+
+						</div>
+
+					</div>
+
+				</div>
 
 
 			
