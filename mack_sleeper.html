@@ -1132,8 +1132,11 @@
 
 		.sections {
 				margin-left: 8%;
+				margin-right: 8%;
 				margin-top: 50px;
 				padding-bottom: 40px;
+				flex-direction: row;
+    			display: flex;
 		}
 
 		.sections p {
@@ -1141,10 +1144,13 @@
 				font-size: 16px;
 				line-height: 17px;
 				color: #fff;
-				width: 100px;
-				margin-right: 0px;
 			}
 
+			#middle-p {
+				padding-right: 10px;
+				padding-left: 10px;
+				
+			}
 			.sections span {
 				font-size: 12px;
 				line-height: 25px;
@@ -1222,6 +1228,7 @@
 				width: 100px;
 				margin-right: 30px;
 			}
+
 
 			.sections span {
 				font-size: 12px;
@@ -1585,7 +1592,7 @@
 
 				<div class="sections">
 					<p><span>01</span><br>Service and Support</p>
-					<p><span>02</span><br>Total Cost of Ownership</p>
+					<p id="middle-p"><span>02</span><br>Total Cost of Ownership</p>
 					<p><span>03</span><br>Warranty and Protection</p>
 				</div>
 
