@@ -63,6 +63,8 @@
 		.container { width: 100%; max-width: 1200px; margin: 0 auto; }
 		.container-full { max-width: none; }
 
+
+
         #footer {
                     padding-left: 0;
                     padding-top: 50px;
@@ -319,7 +321,7 @@
 		.button.red:hover { background-color: #000000; }
 		.button.red-outline { border: 1px solid #b8252f; background: #ffffff; color: #b8252f; }
 		.button.red-outline:hover { color: #000000; border-color: #000000; }
-		.header { background-color: transparent; position: absolute; min-height: 64px; min-height: 4rem; z-index: 15; width: 100%; top: 0; transition: border-color 0.3s ease-in; max-width: 1200px; margin: 0 auto; }
+		.header { background-color: transparent; position: inherit; min-height: 64px; min-height: 4rem; z-index: 15; width: 100%; top: 0; transition: border-color 0.3s ease-in; }
 		.header-thank { padding: 40px; }
 		.header-content { display: flex; width: 100%; max-width: 1200px; margin: 0 auto; align-items: center; justify-content: space-between; }
 
@@ -590,6 +592,20 @@
 		.lightbox { display: none; width: 70vw; height: 70vh; background: #000000; top: 16%; left: 50%; z-index: 11; position: absolute; transform: translate(-50%); }
 		.lightbox.show { display: block; }
 		.lightbox iframe { width: 100%; height: 100%; }
+
+		
+		@media (min-width: 1024px) {
+			.header { 
+				position: absolute;
+				width: 100%;
+    			margin: 0 auto;
+			}
+			.header-content {
+				padding-left: 70px;
+			} 
+		}
+
+
 	</style>
 
 </head>
@@ -676,7 +692,7 @@
 		</symbol>
 	</svg>
 
-	<header class="header header-thank ">
+	<header class="header header-thank">
 		<div class="header-content">
 			<div class="header-content-logo">
 				<svg xmlns="http://www.w3.org/2000/svg" class="header__mack-logo">
