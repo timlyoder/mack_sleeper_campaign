@@ -66,9 +66,9 @@
 
 		sup {
 			position: relative;
-    		font-size: 40%;
+    		font-size: 35%;
     		line-height: 0;
-    		top: -1em;
+    		top: -0.5em;
 			left: -0.6em;
 			vertical-align: super;
 		}
@@ -118,6 +118,8 @@
         
 
 		@media (max-width: 768px) { .container-full-lg { max-width: none; padding-left: 0 !important; padding-right: 0 !important; } 
+			
+			
 			#social {
 					display: inline-flex;
 					padding-bottom: 10px;
@@ -391,9 +393,9 @@
 		.hero { margin: 0px auto 0; background: #000000; background-repeat: no-repeat; background-size: cover; height: 100%; max-height: 720px; background-position: center -10%; position: relative; display: flex; align-items: center; max-width: 1440px; padding: 80px 0 0 !important; }
 		.hero-thank { padding-top: 90px !important; background-position: center -10%; }
 
-		@media (max-width: 768px) { .hero-thank video { margin-top: 230px; } }
+		@media (max-width: 768px) { .hero-thank video { margin-top: 400px; } }
 
-		@media (max-width: 768px) { .hero-thank::before { top: 230px !important; } }
+		@media (max-width: 768px) { .hero-thank::before { top: 230px !important; display: none;} }
 		.hero::before { content: ""; position: absolute; top: 0; left: 0; z-index: 1; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.25); }
 
 		@media (max-width: 768px) { .hero { height: 50vh; } }
@@ -402,7 +404,7 @@
 		.hero video { position: absolute; top: 0; max-width: 1440px; height: 100%; -o-object-fit: fill; object-fit: fill; left: 50%; transform: translateX(-50%); width: 100% !important; }
 		.hero .playButton { width: 120px; height: 120px; background: hsla(0, 0%, 100%, 0.38); position: relative; border-radius: 100%; z-index: 10; cursor: pointer; }
 
-		@media (max-width: 768px) { .hero .playButton { position: absolute; top: 380px; left: 50%; transform: translateX(-50%); } }
+		@media (max-width: 768px) { .hero .playButton { position: absolute; top: 380px; left: 50%; transform: translateX(-50%); display: none; } }
 
 		@media (max-width: 640px) { .hero .playButton { width: 80px; height: 80px; } }
 		.hero .playButton::after { content: ""; background: #ffffff; position: absolute; border: 1px solid #000000; height: 100px; width: 100px; top: 9%; left: 50%; transform: translate(-50%); border-radius: 100%; }
@@ -484,7 +486,7 @@
 
 		@media (max-width: 768px) { .cta2up { padding: 60px 0 25px; } }
 
-		@media (max-width: 768px) { .cta2up.thank { margin-top: 230px; } }
+		@media (max-width: 768px) { .cta2up.thank { margin-top: 530px; } }
 		.cta2up.thank .cols { display: none; }
 		.cta2up.thank .cols.show { display: flex; }
 		.cta2up .cols { display: flex; justify-content: space-around; }
