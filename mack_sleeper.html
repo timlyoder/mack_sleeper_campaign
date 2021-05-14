@@ -162,7 +162,7 @@
                 // this event sends a list of elements under the mouse. we just want the container.
                 // this should work with additional carousels but each will need a unique combo
                 // of <classname> + 'horizontal-scroller' as a selector. 
-                var whichScroller = e.path.filter(function (pathitem) {
+                var whichScroller = e.composedPath().filter(function (pathitem) {
                     return pathitem.className && pathitem.className.indexOf('horizontal-scroller') > 0
                 })
 
