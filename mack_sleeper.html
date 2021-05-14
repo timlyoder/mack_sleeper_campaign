@@ -61,105 +61,138 @@
                         );
                     });
 
-                   
 
+                /* Toggle Video Modal */
+                function toggle_video_modal() {
+                    
+                    // Click on video thumbnail or link
+                    $(".js-trigger-video-modal").on("click", function(e){
+                    
+                    // prevent default behavior for a-tags, button tags, etc. 
+                        e.preventDefault();
+                    
+                    // Grab the video ID from the element clicked
+                    var id = $(this).attr('data-youtube-id');
 
-                    /* Toggle Video Modal */
-                    function toggle_video_modal() {
-                        
-                        // Click on video thumbnail or link
-                        $(".js-trigger-video-modal").on("click", function(e){
-                        
-                        // prevent default behavior for a-tags, button tags, etc. 
-                            e.preventDefault();
-                        
-                        // Grab the video ID from the element clicked
-                        var id = $(this).attr('data-youtube-id');
+                    // Autoplay when the modal appears
+                    // Note: this is intetnionally disabled on most mobile devices
+                    // If critical on mobile, then some alternate method is needed
+                    var autoplay = '?autoplay=1';
 
-                        // Autoplay when the modal appears
-                        // Note: this is intetnionally disabled on most mobile devices
-                        // If critical on mobile, then some alternate method is needed
-                        var autoplay = '?autoplay=1';
+                    // Don't show the 'Related Videos' view when the video ends
+                    var related_no = '&rel=0';
 
-                        // Don't show the 'Related Videos' view when the video ends
-                        var related_no = '&rel=0';
+                    // String the ID and param variables together
+                    var src = '//www.youtube.com/embed/'+id+autoplay+related_no;
+                    
+                    // Pass the YouTube video ID into the iframe template...
+                    // Set the source on the iframe to match the video ID
+                    $("#youtube").attr('src', src);
+                    
+                    // Add class to the body to visually reveal the modal
+                    $("body").addClass("show-video-modal noscroll");
+                    
+                });
 
-                        // String the ID and param variables together
-                        var src = '//www.youtube.com/embed/'+id+autoplay+related_no;
-                        
-                        // Pass the YouTube video ID into the iframe template...
-                        // Set the source on the iframe to match the video ID
-                        $("#youtube").attr('src', src);
-                        
-                        // Add class to the body to visually reveal the modal
-                        $("body").addClass("show-video-modal noscroll");
-                        
-                    });
+                    // Close and Reset the Video Modal
+                function close_video_modal() {
+                    
+                    event.preventDefault();
 
-                        // Close and Reset the Video Modal
-                    function close_video_modal() {
-                        
-                        event.preventDefault();
+                    // re-hide the video modal
+                    $("body").removeClass("show-video-modal noscroll");
 
-                        // re-hide the video modal
-                        $("body").removeClass("show-video-modal noscroll");
-
-                        // reset the source attribute for the iframe template, kills the video
-                        $("#youtube").attr('src', '');
+                    // reset the source attribute for the iframe template, kills the video
+                    $("#youtube").attr('src', '');
+                    
+                }
+                // if the 'close' button/element, or the overlay are clicked 
+                    $('body').on('click', '.close-video-modal, .video-modal .video-modal-overlay', function(event) {
                         
-                    }
-                    // if the 'close' button/element, or the overlay are clicked 
-                        $('body').on('click', '.close-video-modal, .video-modal .video-modal-overlay', function(event) {
-                            
+                    // call the close and reset function
+                    close_video_modal();
+                        
+                });
+                // if the ESC key is tapped
+                $('body').keyup(function(e) {
+                    // ESC key maps to keycode `27`
+                    if (e.keyCode == 27) { 
+                        
                         // call the close and reset function
                         close_video_modal();
-                            
-                    });
-                    // if the ESC key is tapped
-                    $('body').keyup(function(e) {
-                        // ESC key maps to keycode `27`
-                        if (e.keyCode == 27) { 
-                            
-                            // call the close and reset function
-                            close_video_modal();
-                            
-                        }
-                    });
-                    }
-                    toggle_video_modal();
-                });
-
-                $(window).on("scroll", function() {
-                    console.log($(window).scrollTop())
-                    if($(window).scrollTop() > 1) {
-                        $(".header").addClass("active");
-                    } else {
-                        console.log($('.header'))
-                        //remove the background property so it comes transparent again (defined in your css)
-                    $(".header").removeClass("active");
+                        
                     }
                 });
+                }
+                toggle_video_modal();
+            });
 
-                $(".sidebar form").on("submit", function(e) {
-                    e.preventDefault();
-                    // console.log($(this).serialize());
-                    $.ajax( {
-                        type:"POST",
-                        url:"https://s1219509997.t.eloqua.com/e/f2",
-                        data: $(".sidebar form").serialize(),
-                        success:function(e) {
-                            if ( !$(".LV_invalid_field").length ) window.location="https://info.macktrucks.com/longhaulthankyou"
-                        },
-                        error:function(e) {
-                            console.log("error", e)
-                        }
-                    })
-                });
+            $(window).on("scroll", function() {
+                //console.log($(window).scrollTop())
+                if($(window).scrollTop() > 1) {
+                    $(".header").addClass("active");
+                } else {
+                    console.log($('.header'))
+                    //remove the background property so it comes transparent again (defined in your css)
+                $(".header").removeClass("active");
+                }
+            });
+
+            $(".sidebar form").on("submit", function(e) {
+                e.preventDefault();
+                // console.log($(this).serialize());
+                $.ajax( {
+                    type:"POST",
+                    url:"https://s1219509997.t.eloqua.com/e/f2",
+                    data: $(".sidebar form").serialize(),
+                    success:function(e) {
+                        if ( !$(".LV_invalid_field").length ) window.location="https://info.macktrucks.com/longhaulthankyou"
+                    },
+                    error:function(e) {
+                        console.log("error", e)
+                    }
+                })
+            });
+
+            // SCROLL WHEEL HORIZONTAL CAPTURE
+            
+            function scrollHorizontally(e) {
+                // the scroll handler
+                
+                // this event sends a list of elements under the mouse. we just want the container.
+                // this should work with additional carousels but each will need a unique combo
+                // of <classname> + 'horizontal-scroller' as a selector. 
+                var whichScroller = e.path.filter(function (pathitem) {
+                    return pathitem.className && pathitem.className.indexOf('horizontal-scroller') > 0
+                })
+
+                e = window.event || e;
+                var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+                console.log(whichScroller[0], whichScroller[0].scrollLeft)
+                console.log(delta)
+                whichScroller[0].scrollLeft -= (delta * 10); // Multiplied by 40
+                
+                
+                e.preventDefault();
+            }
+
+            // attach the scrolling event to the specifical element containers
+            var horizontalScrollers = [];
+            if(window.innerWidth > 768){ horizontalScrollers = document.querySelectorAll('.horizontal-scroller');}
+            for (var i = 0; i < horizontalScrollers.length; i++){
+                var scroller = horizontalScrollers[i];
+                
+                if (scroller.addEventListener) {
+                    // IE9, Chrome, Safari, Opera
+                    scroller.addEventListener('mousewheel', scrollHorizontally, false);
+                    // Firefox
+                    scroller.addEventListener('DOMMouseScroll', scrollHorizontally, false);
+                }
+            }
 
             });
 
-
-            
+        
         </script>
 
         <link
@@ -775,7 +808,6 @@
                 margin: 70px 30px 0 30px;
                 display: block;
                 background-color: #fff;
-                scroll-snap-type: x mandatory;
                 white-space: nowrap;
                 overflow-x: scroll;
                 overflow-y: hidden;
@@ -788,9 +820,10 @@
                 display: inline-block;
                 white-space: normal
             }
+            
 
             .carousel > .scroll-pad,  .video-carousel > .scroll-pad {
-                width: 600px;
+                width: 10px;
                 height: 438px;
                 vertical-align: top;
                 background-color: #000;
@@ -807,7 +840,6 @@
                 margin: 70px 30px 0 30px;
                 display: block;
                 background-color: #000;
-                scroll-snap-type: x mandatory;
                 white-space: nowrap;
                 overflow-x: scroll;
                 overflow-y: hidden;
@@ -1021,10 +1053,10 @@
             }
 
             .column_copy {
-                font-size: 12px;
+                font-size: 16px;
                 font-family: 'Helvetica Neue 55 Regular', 'Helvetica', 'Arial',
                     sans-serif;
-                line-height: 16px;
+                line-height: 21px;
                 color: #fff;
                 font-weight: 400;
                 letter-spacing: -3%;
@@ -1304,7 +1336,8 @@
             }
 
             .three-column-header {
-                font-size: 16px;
+                font-size: 20px;
+                line-height: 24px;
                 color: #fff;
                 font-weight: 400;
             }
@@ -1708,6 +1741,11 @@
                 width: 100vw;
                 margin-left: 0;
                 margin-right: 0;
+                scroll-snap-type: x mandatory;
+            }
+
+            .carousel > .scroll-pad,  .video-carousel > .scroll-pad {
+                width: 600px;
             }
 
         } 
@@ -2004,7 +2042,7 @@
                 <span class="section_title">02/ TOTAL COST OF OWNERSHIP</span>
 
                 
-                    <div class="carousel">
+                    <div class="carousel horizontal-scroller">
                             <div class="card_1">
                                 <h2>
                                     5 Ways Mack Anthem adds up for your
@@ -2161,7 +2199,7 @@
 
                 <span class="section_title">04/ REAL-WORLD RESULTS</span>
 
-                <div class="video-carousel">
+                <div class="video-carousel horizontal-scroller">
                         <div class="card_1" id="proof-performance">
                             <h2>The proof is in the performance.</h2>
                             <p class="body_copy card_p">
