@@ -130,6 +130,10 @@
 			display: inline-block;
 		}
 
+		.hero-thank {
+			background-image: url('https://images.info.macktrucks.com/Web/MackTrucks/{f5df9a54-cce0-4012-8963-f879795ab38e}_thankyou_bg.png');
+		}
+
 	@media (max-width: 768px) { .container-full-lg { max-width: none; padding-left: 0 !important; padding-right: 0 !important; } }	
 
 		span.fine_print {
@@ -170,7 +174,7 @@
 		@media (max-width: 768px) { .container { padding-left: 48px; padding-right: 48px; } }
 
 		@media (max-width: 640px) { .container { padding-left: 27px; padding-right: 27px; } }
-		.row { display: flex; flex-direction: row; flex-wrap: wrap; margin-left: -16px; margin-right: -16px; width: calc(100% + 32px); }
+		.row { display: flex; flex-direction: row; flex-wrap: wrap; margin-left: -16px; margin-right: -16px }
 		.row-relative { position: relative; }
 
 		@media (max-width: 768px) { .row.mobileFlip { flex-direction: column-reverse; } }
@@ -413,11 +417,11 @@
 		.header-mobileMenu-country .countries .country.selected { border: 1px solid #ffffff; background: #343434; }
 		.header-mobileMenu-country .countries .country.selected span { color: #ffffff; }
 		.hero { margin: 0px auto 0; background: #000000; background-repeat: no-repeat; background-size: cover; height: 100%; max-height: 720px; background-position: center -10%; position: relative; display: flex; align-items: center; max-width: 1440px; padding: 80px 0 0 !important; }
-		.hero-thank { padding-top: 90px !important; background-position: center -10%; }
+		.hero-thank { padding-top: 90px !important; background-position: center -10%;background-image: url('https://images.info.macktrucks.com/Web/MackTrucks/{f5df9a54-cce0-4012-8963-f879795ab38e}_thankyou_bg.png'); }
 
 		@media (max-width: 768px) { .hero-thank video { margin-top: 400px; } }
 
-		@media (max-width: 768px) { .hero-thank::before { top: 230px !important; display: none;} }
+		@media (max-width: 768px) { .hero-thank::before {  } }
 		.hero::before { content: ""; position: absolute; top: 0; left: 0; z-index: 1; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.25); }
 
 		@media (max-width: 768px) { .hero { height: 50vh; } }
@@ -436,7 +440,7 @@
 
 		@media (max-width: 640px) { .hero .playButton .arrow { border-width: 8.5px 0 8.5px 18px; top: 41%; } }
 
-		@media (max-width: 768px) { .hero .textContainer { position: absolute; top: 30px; background: #000000; min-height: 320px; width: 100%; left: 0; padding-left: 40px; } }
+		@media (max-width: 768px) { .hero .textContainer { position: relative; width: 100%;  } }
 		.hero h1 { color: #ffffff; width: 54%; margin-top: -60px; position: relative; z-index: 2; }
 		.hero h1.thank { width: 100%; margin-top: -30px; }
 
@@ -504,11 +508,11 @@
 		.truck .links button:first-child { margin-right: 10px; }
 
 		@media (max-width: 768px) { .truck .links button:first-child { margin-right: 0; margin-bottom: 15px; } }
-		.cta2up { background: #1a1a1a; padding: 60px 0 100px; color: #ffffff; }
+		.cta2up { background: #1a1a1a; padding: 60px 0 100px; color: #ffffff;max-width: 1440px;margin-left: auto;margin-right: auto; }
 
 		@media (max-width: 768px) { .cta2up { padding: 60px 0 25px; } }
 
-		@media (max-width: 768px) { .cta2up.thank { margin-top: 530px; } }
+		@media (max-width: 768px) { .cta2up.thank {  } }
 		.cta2up.thank .cols { display: none; }
 		.cta2up.thank .cols.show { display: flex; }
 		.cta2up .cols { display: flex; justify-content: space-around; }
@@ -634,7 +638,7 @@
 				padding-left: 70px;
 			} 
 			.hero p {
-				max-width: 30%;
+				max-width: 32%;
 			}
 			.hero h1.thank  {
 				max-width: 40%;
@@ -751,23 +755,23 @@
 	</header>
 	
 	<div class="hero hero-thank">
-		<video loop autoplay muted playsinline poster="https://img03.en25.com/EloquaImages/clients/MackTrucks/%7B282e2233-1104-4af6-a20e-f6d36e85a682%7D_hero.png" id="bgvid" class="video">
+		<!-- <video loop autoplay muted playsinline poster="https://img03.en25.com/EloquaImages/clients/MackTrucks/%7B282e2233-1104-4af6-a20e-f6d36e85a682%7D_hero.png" id="bgvid" class="video">
 			<source src="https://img03.en25.com/Web/MackTrucks/{5a08c822-837e-4fd4-8980-84b27f3f8359}_MFS_720p.mp4" type="video/mp4">
 			<img src="https://img03.en25.com/EloquaImages/clients/MackTrucks/%7B282e2233-1104-4af6-a20e-f6d36e85a682%7D_hero.png" alt="Lets Haul">
 			Your browser does not support the video tag. Please upgrade your browser.
 			</source>
-		</video>
+		</video> -->
 		<div class="container">
 			<div class="row center">
 				<div class="col-8 col-lg-12 textContainer">
 					<h1 class="thank">Thank you.</h1>
 					<p>We’ve passed along your request to your local Mack dealer.</p>
 				</div>
-				<div class="col-4 col-lg-12">
+				<!-- <div class="col-4 col-lg-12">
 					<div class="playButton">
 						<div class="arrow"></div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
