@@ -131,14 +131,30 @@
 
                 $(window).on("scroll", function() {
                     console.log($(window).scrollTop())
-                        if($(window).scrollTop() > 1) {
-                            $(".header").addClass("active");
-                        } else {
-                            console.log($('.header'))
-                            //remove the background property so it comes transparent again (defined in your css)
-                        $(".header").removeClass("active");
+                    if($(window).scrollTop() > 1) {
+                        $(".header").addClass("active");
+                    } else {
+                        console.log($('.header'))
+                        //remove the background property so it comes transparent again (defined in your css)
+                    $(".header").removeClass("active");
+                    }
+                });
+
+                $(".sidebar form").on("submit", function(e) {
+                    e.preventDefault();
+                    // console.log($(this).serialize());
+                    $.ajax( {
+                        type:"POST",
+                        url:"https://s1219509997.t.eloqua.com/e/f2",
+                        data: $(".sidebar form").serialize(),
+                        success:function(e) {
+                            if ( !$(".LV_invalid_field").length ) window.location="https://info.macktrucks.com/longhaulthankyou"
+                        },
+                        error:function(e) {
+                            console.log("error", e)
                         }
-                    });
+                    })
+                });
 
             });
 
