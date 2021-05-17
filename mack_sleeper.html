@@ -168,12 +168,12 @@
 
                 e = window.event || e;
                 var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-                console.log(whichScroller[0], whichScroller[0].scrollLeft)
-                console.log(delta)
-                whichScroller[0].scrollLeft -= (delta * 10); // Multiplied by 40
                 
-                
-                e.preventDefault();
+                whichScroller[0].scrollLeft -= (delta * 10); // Multiplied by 10 (the higher the more insanely fast the scroll)
+
+                if ((whichScroller[0].scrollWidth - whichScroller[0].scrollLeft - whichScroller[0].offsetWidth) !== 0 && whichScroller[0].scrollLeft !== 0) {
+                  e.preventDefault();
+                }
             }
 
             // attach the scrolling event to the specifical element containers
